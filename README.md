@@ -1,4 +1,4 @@
-# Edge AI for Camera-Trap Wildlife Monitoring (`mcunet-in3`)
+# TinyML MegaDetector — Edge AI for Camera-Trap Wildlife Monitoring (`mcunet-in3`)
 
 **Interactive 9-Slide Academic Presentation** — *AIMS · AI for Science: Deep Learning for Ecology*
 
@@ -7,44 +7,32 @@
 
 ---
 
-## Project Overview
+## Research Story
 
-This presentation summarizes our dual-track TinyML camera-trap wildlife monitoring study built around ImageNet-pretrained **`mcunet-in3`** (`176×176` RGB input) under strict microcontroller resource constraints (`SRAM ≤ 320 KB`, `Flash ≤ 1 MB`, `Latency < 15 s / frame`):
+Our goal is to filter camera-trap frames directly on microcontrollers (`SRAM ≤ 320 KB`, `Flash ≤ 1 MB`, `Latency < 15 s / frame`):
 
-| Metric | Track A — Bird vs. Not-Bird | Track B — TinyML MegaDetector |
-|---|---|---|
-| **Classes** | 2 (`bird`, `not_bird`) | 4 (`animal`, `empty`, `person`, `vehicle`) |
-| **Parameters** | `576,730` | `577,052` |
-| **Dataset Scale** | `36,193` imgs (8 sources; 4 unseen OOD test sets) | `690,881` imgs (4 sources; MD5 location-disjoint 80/10/10) |
-| **Best Validation** | `85.45%` accuracy (loss `0.3241`) | `90.0%` accuracy · `0.8994` macro-F1 |
-| **Test (FP32)** | `66.39%` OOD accuracy (`6,400` imgs) | `88.47%` accuracy · `0.905` macro-F1 (`66,027` imgs) |
-| **INT8 TFLite Flash** | `785.9 KB` (≤ 1 MB ✅) | `786 KB` (≤ 1 MB ✅) |
-| **Peak SRAM Audit** | `293 KB` TinyEngine target | `389 KB` peak at explicit `PAD` (`~600 KB` TFLM arena ❌ > `320 KB`) |
+1. **Initial Bird Pilot (`bird` vs. `not_bird`, `36,193` imgs):** Because birds are small and agile, low `176×176` edge resolution caused OOD accuracy to drop from `85.45%` (val) to **`66.39%`** with only **`45.0%` bird recall** (`82%` of mistakes = missed birds).
+2. **Strategic Pivot → 4-Class TinyML MegaDetector (`animal / empty / person / vehicle`, `690,881` imgs):** Aligning the class taxonomy to edge-camera resolution unlocks **`88.47%` test accuracy** and **`0.905` macro-F1** across `66,027` held-out test images in **`786 KB` INT8 Flash** (`577,052` params).
 
 ---
 
 ## Slide Index (9 Slides)
 
-1. **`#1` — Title Slide** *(Ecological woodland dawn backdrop)* — Project framing, dual tracks, and MCU budget badges
-2. **`#2` — Motivation, Hardware Constraints & Dual-Track Overview** — Field bottlenecks & comparative experimental matrix
-3. **`#3` — Multi-Source Datasets & Leakage-Free Splits** *(Ecological savanna backdrop)* — Spatial splits, anti-shortcut pairing & MD5 camera hashing
-4. **`#4` — Teacher-Guided Data Cleaning Pipeline (`MDv5a`)** — Animated burst denoising pipeline & real field bugs caught (`25%` Caltech `"empty"`, Safari `"empty"` fix, `~1,750` `"goose"`/`"mongoose"` taxonomy fix)
-5. **`#5` — Model Architecture: `mcunet-in3`** — Interactive animated 18-block `MBInvertedConvLayer` & 11-skip residual SVG schematic
-6. **`#6` — Track A: Training & OOD Generalization** — Animated CPU learning curve vs. `66.39%` OOD benchmark & `45.0%` bird recall asymmetry
-7. **`#7` — Track B: Two-Phase Training & Test Results** — Animated per-class F1, per-source accuracy & `91.8%` `animal ↔ empty` error breakdown
-8. **`#8` — Edge Export, INT8 Quantization & MCU Memory Audit** — Animated TF2 rebuilder pipeline, INT8 confidence parity & Flash/SRAM gauges
-9. **`#9` — Technical Risks, Limitations & Next Steps** *(Nocturnal forest canopy backdrop)* — SRAM closure, Track A recall roadmap & licensing governance
+1. **`#1` — Title Slide** *(Woodland dawn backdrop)* — Project focus (`animal / empty / person / vehicle`) & MCU budget
+2. **`#2` — From Bird Detection to TinyML MegaDetector** — Why we pivoted from birds (`45.0%` recall) to 4 MegaDetector classes (`88.47%` / `0.905` F1)
+3. **`#3` — Final Dataset (`690,881` Images)** *(Savanna backdrop)* — 80/10/10 splits, 4 sources & MD5 camera-location anti-leakage
+4. **`#4` — Teacher-Guided Data Cleaning (`MDv5a`)** — Animated 4-step burst-denoising pipeline & real data-audit bugs caught
+5. **`#5` — Model Architecture: `mcunet-in3`** — Animated 18-block `MBInvertedConvLayer`, 11 residual skips & 4-class `LinearLayer` head
+6. **`#6` — Two-Phase GPU Training & Test Results** — Per-class F1 (`0.905` macro) & per-source accuracy (`88.47%` overall)
+7. **`#7` — Error Analysis (`66,027` Test Images)** — 4×4 confusion matrix & `91.8%` `animal ↔ empty` error concentration
+8. **`#8` — Edge Export, INT8 Quantization & MCU Memory Audit** — Custom TF2 rebuilder, `100%` parity (`conf > 0.7`), Flash (`786 KB` PASS) vs. SRAM (`389 KB` at explicit `PAD` > `320 KB`)
+9. **`#9` — Technical Risks, Limitations & Next Steps** *(Nocturnal forest backdrop)* — Closing the SRAM spike, on-board latency bench & licensing governance
 
 ---
 
-## Navigation & Features
+## Controls & Local Preview
 
-- **Keyboard:** `←` / `→` or `Space` (previous/next), `1`–`9` (jump to slide), `O` (3×3 slide overview), `N` (speaker notes), `R` (replay slide animations)
-- **Direct URLs:** `#1` through `#9` hash deep-linking
-- **Print / PDF Export:** Click **Print** (or `Ctrl/Cmd + P`) for clean 16:9 landscape export (`@media print` renders all 9 slides with animations completed)
-- **Zero-dependency static bundle:** 100% relative asset paths (`./styles.css`, `./app.js`, `./assets/images/...`), runs directly on GitHub Pages or locally.
-
-## Local Preview
+- **Keyboard:** `←` / `→` or `Space`, `1`–`9` direct slide jump, `O` overview grid, `N` speaker notes, `R` replay animations, **Print** for clean 16:9 9-page PDF.
 
 ```bash
 python3 -m http.server 8000
