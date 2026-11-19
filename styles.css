@@ -490,10 +490,11 @@ h1.slide-title {
 }
 
 .card-title {
-  font-size: 1.02rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--ink);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  line-height: 1.24;
 }
 
 .card-frosted-dark .card-title {
@@ -501,7 +502,7 @@ h1.slide-title {
 }
 
 .card-text {
-  font-size: 0.92rem;
+  font-size: 1.02rem;
   color: var(--ink-2);
   line-height: 1.5;
 }
@@ -515,11 +516,11 @@ h1.slide-title {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.22rem 0.66rem;
+  padding: 0.25rem 0.74rem;
   border-radius: 999px;
-  font-size: 0.74rem;
+  font-size: 0.80rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.025em;
   background: var(--surface-2);
   color: var(--ink-2);
   border: 1px solid var(--line);
@@ -556,18 +557,18 @@ h1.slide-title {
   border: 1px solid rgba(167, 212, 187, 0.34);
 }
 
-/* Clean Bullet Lists (Airy) */
+/* Clean Bullet Lists (Airy & Projector-Readable) */
 .clean-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.72rem;
+  gap: 0.82rem;
 }
 
 .clean-list li {
   position: relative;
-  padding-left: 1.1rem;
-  font-size: 0.91rem;
+  padding-left: 1.2rem;
+  font-size: 1.02rem;
   line-height: 1.48;
   color: var(--ink-2);
 }
@@ -576,11 +577,35 @@ h1.slide-title {
   content: '';
   position: absolute;
   left: 0;
-  top: 0.56em;
-  width: 6px;
-  height: 6px;
+  top: 0.54em;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--forest-mid);
+}
+
+/* Extra-prominent keynote typography for Phase 1 / Phase 2 Pivot cards */
+.card-hero-copy {
+  padding: 1.4rem 1.6rem;
+  gap: 0.95rem;
+}
+
+.card-hero-copy .card-title {
+  font-size: 1.24rem;
+}
+
+.card-hero-copy .clean-list {
+  gap: 0.92rem;
+}
+
+.card-hero-copy .clean-list li {
+  font-size: 1.08rem;
+  line-height: 1.48;
+}
+
+.card-hero-copy .tag {
+  font-size: 0.86rem;
+  padding: 0.28rem 0.82rem;
 }
 
 .card-frosted-dark .clean-list li {
@@ -869,14 +894,14 @@ h1.slide-title {
 }
 
 .pipe-node-title {
-  font-size: 0.95rem;
+  font-size: 1.04rem;
   font-weight: 700;
   color: var(--ink);
   line-height: 1.2;
 }
 
 .pipe-node-desc {
-  font-size: 0.82rem;
+  font-size: 0.90rem;
   color: var(--ink-2);
   line-height: 1.4;
 }
