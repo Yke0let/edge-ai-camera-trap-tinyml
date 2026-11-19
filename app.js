@@ -89,11 +89,12 @@
   function triggerSlideVisuals(idx, instant) {
     if (idx === 1) renderPivotChart(instant);
     if (idx === 4) renderMCUNetArch(instant);
-    if (idx === 5) {
+    if (idx === 5) renderTrainingCurve(instant);
+    if (idx === 6) {
       renderTrackBF1(instant);
       renderTrackBSources(instant);
     }
-    if (idx === 6) renderTrackBErrors(instant);
+    if (idx === 7) renderTrackBErrors(instant);
   }
 
   function goTo(idx, opts = {}) {
@@ -188,8 +189,10 @@
     } else if (e.key === 'End') {
       e.preventDefault();
       goTo(totalSlides - 1);
-    } else if (e.key >= '1' && e.key <= String(totalSlides)) {
+    } else if (e.key >= '1' && e.key <= '9') {
       goTo(parseInt(e.key, 10) - 1);
+    } else if (e.key === '0') {
+      goTo(9);
     } else if (e.key === 'o' || e.key === 'O') {
       toggleOverview();
     } else if (e.key === 'n' || e.key === 'N') {
@@ -224,6 +227,7 @@
   function renderAllVisualsStatic() {
     renderPivotChart(true);
     renderMCUNetArch(true);
+    renderTrainingCurve(true);
     renderTrackBF1(true);
     renderTrackBSources(true);
     renderTrackBErrors(true);
@@ -539,7 +543,125 @@
   }
 
   /* ========================================================================
-     6. SLIDE 6 — LARGE, UNCROWDED TEST F1 & SOURCE ACCURACY CHARTS
+     6. SLIDE 6 — REAL 11-EPOCH TWO-PHASE TRAINING CURVE (outputs/history.csv)
+     ======================================================================== */
+  const HISTORY_EPOCHS = [
+    { idx: 1,  tag: 'H1', phase: 'Phase 1 · Head',     trAcc: 77.2, valAcc: 81.8, valF1: 80.0,  valLoss: 0.852 },
+    { idx: 2,  tag: 'H2', phase: 'Phase 1 · Head',     trAcc: 77.5, valAcc: 81.9, valF1: 81.4,  valLoss: 0.853 },
+    { idx: 3,  tag: 'H3', phase: 'Phase 1 · Head',     trAcc: 77.7, valAcc: 82.5, valF1: 81.7,  valLoss: 0.841 },
+    { idx: 4,  tag: 'F1', phase: 'Phase 2 · Fine-Tune', trAcc: 88.5, valAcc: 88.4, valF1: 88.1,  valLoss: 0.714 },
+    { idx: 5,  tag: 'F2', phase: 'Phase 2 · Best',      trAcc: 92.3, valAcc: 90.0, valF1: 89.94, valLoss: 0.686 },
+    { idx: 6,  tag: 'F3', phase: 'Phase 2 · Fine-Tune', trAcc: 93.4, valAcc: 89.9, valF1: 89.5,  valLoss: 0.695 },
+    { idx: 7,  tag: 'F4', phase: 'Phase 2 · Fine-Tune', trAcc: 94.1, valAcc: 87.9, valF1: 88.7,  valLoss: 0.737 },
+    { idx: 8,  tag: 'F5', phase: 'Phase 2 · Fine-Tune', trAcc: 94.5, valAcc: 89.0, valF1: 89.5,  valLoss: 0.701 },
+    { idx: 9,  tag: 'F6', phase: 'Phase 2 · Fine-Tune', trAcc: 94.9, valAcc: 87.6, valF1: 88.4,  valLoss: 0.736 },
+    { idx: 10, tag: 'F7', phase: 'Phase 2 · Fine-Tune', trAcc: 95.3, valAcc: 90.1, valF1: 89.7,  valLoss: 0.689 },
+    { idx: 11, tag: 'F8', phase: 'Early Stopping',      trAcc: 95.5, valAcc: 86.9, valF1: 88.2,  valLoss: 0.740 }
+  ];
+
+  function renderTrainingCurve(instant = false) {
+    const svg = document.getElementById('train-curve-svg');
+    const wrap = document.getElementById('train-curve-wrap');
+    const tip = document.getElementById('train-curve-tooltip');
+    if (!svg) return;
+    svg.innerHTML = '';
+
+    const pad = { top: 34, right: 24, bottom: 42, left: 48 };
+    const W = 600, H = 300;
+    const innerW = W - pad.left - pad.right;
+    const innerH = H - pad.top - pad.bottom;
+    const minY = 74, maxY = 98;
+
+    const xScale = (idx) => pad.left + ((idx - 1) / 10) * innerW;
+    const yScale = (val) => pad.top + innerH - ((val - minY) / (maxY - minY)) * innerH;
+
+    // Shaded Phase 1 backdrop
+    const xSplit = (xScale(3) + xScale(4)) / 2;
+    svg.appendChild(el('rect', {
+      x: pad.left, y: pad.top, width: xSplit - pad.left, height: innerH,
+      fill: 'rgba(82, 121, 111, 0.08)'
+    }));
+
+    // Gridlines
+    [75, 80, 85, 90, 95].forEach((t) => {
+      const y = yScale(t);
+      svg.appendChild(el('line', { x1: pad.left, y1: y, x2: W - pad.right, y2: y, stroke: '#e5ebe6', 'stroke-width': 1 }));
+      svg.appendChild(el('text', { x: pad.left - 8, y: y + 4, 'text-anchor': 'end', 'font-family': 'JetBrains Mono, monospace', 'font-size': 10.5, fill: '#5d6e65' }, `${t}%`));
+    });
+
+    // Vertical Phase Divider
+    svg.appendChild(el('line', { x1: xSplit, y1: pad.top - 6, x2: xSplit, y2: H - pad.bottom, stroke: '#b45309', 'stroke-width': 1.8, 'stroke-dasharray': '5 4' }));
+    svg.appendChild(el('text', { x: (pad.left + xSplit) / 2, y: pad.top - 12, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#52796f' }, 'PHASE 1: HEAD'));
+    svg.appendChild(el('text', { x: xSplit + 10, y: pad.top - 12, 'font-size': 10, 'font-weight': 700, fill: '#b45309' }, 'PHASE 2: FULL FINE-TUNE (UNFREEZE)'));
+
+    // X-axis epoch ticks
+    HISTORY_EPOCHS.forEach((d) => {
+      const x = xScale(d.idx);
+      svg.appendChild(el('text', {
+        x, y: H - pad.bottom + 18, 'text-anchor': 'middle',
+        'font-family': 'JetBrains Mono, monospace', 'font-size': 10.2,
+        'font-weight': d.idx === 5 ? 800 : 500,
+        fill: d.idx === 5 ? '#1b4332' : '#5d6e65'
+      }, d.tag));
+    });
+    svg.appendChild(el('text', { x: pad.left + innerW / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 10.2, 'font-weight': 600, fill: '#5d6e65' }, 'Epoch (H1–H3 Head-Only  |  F1–F8 Full Fine-Tune)'));
+
+    const drawPath = (pts, color, dashed = false, width = 2.6, delay = 0) => {
+      const dStr = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.idx)} ${yScale(p.v)}`).join(' ');
+      const path = el('path', { d: dStr, fill: 'none', stroke: color, 'stroke-width': width, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+      if (dashed) path.setAttribute('stroke-dasharray', '5 4');
+      svg.appendChild(path);
+      if (!instant && !dashed) {
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = `${len}`;
+        path.style.strokeDashoffset = `${len}`;
+        path.style.transition = `stroke-dashoffset 0.95s cubic-bezier(0.22,1,0.36,1) ${delay}ms`;
+        requestAnimationFrame(() => { path.style.strokeDashoffset = '0'; });
+      }
+    };
+
+    drawPath(HISTORY_EPOCHS.map(d => ({ idx: d.idx, v: d.trAcc })), '#8aa399', true, 2, 0);
+    drawPath(HISTORY_EPOCHS.map(d => ({ idx: d.idx, v: d.valAcc })), '#1b4332', false, 2.8, 80);
+    drawPath(HISTORY_EPOCHS.map(d => ({ idx: d.idx, v: d.valF1 })), '#b45309', false, 2.5, 180);
+
+    // Best Epoch Highlight (F2, idx=5)
+    const bx = xScale(5), by = yScale(90.0);
+    svg.appendChild(el('circle', { cx: bx, cy: by, r: 10, fill: 'rgba(27,67,50,0.16)' }));
+    svg.appendChild(el('rect', { x: bx - 54, y: by - 36, width: 108, height: 22, rx: 5, fill: '#e5efe9', stroke: '#aacdb8' }));
+    svg.appendChild(el('text', { x: bx, y: by - 21.5, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono, monospace', 'font-size': 9.8, 'font-weight': 700, fill: '#1b4332' }, 'Best: 90.0% / .899'));
+
+    // Interactive Data Points
+    HISTORY_EPOCHS.forEach((d) => {
+      const x = xScale(d.idx);
+      const html = `<strong>${d.tag} — ${d.phase}</strong><br/>` +
+        `Val Acc: <code>${d.valAcc.toFixed(1)}%</code> · Val Macro-F1: <code>${(d.valF1 / 100).toFixed(4)}</code><br/>` +
+        `Train Acc: <code>${d.trAcc.toFixed(1)}%</code> · Val Loss: <code>${d.valLoss.toFixed(3)}</code>`;
+
+      [
+        { y: yScale(d.valAcc), stroke: '#1b4332', fill: d.idx === 5 ? '#1b4332' : '#ffffff', r: d.idx === 5 ? 5.2 : 3.8 },
+        { y: yScale(d.valF1),  stroke: '#b45309', fill: '#ffffff', r: 3.4 }
+      ].forEach((pt) => {
+        const dot = el('circle', { cx: x, cy: pt.y, r: pt.r, fill: pt.fill, stroke: pt.stroke, 'stroke-width': 2, style: 'cursor:pointer;' });
+        dot.addEventListener('mousemove', (e) => showTooltip(tip, wrap, e, html));
+        dot.addEventListener('mouseleave', () => hideTooltip(tip));
+        svg.appendChild(dot);
+      });
+    });
+
+    // Legend inside top-right
+    const leg = el('g', { transform: `translate(${W - 220}, ${H - pad.bottom - 52})` });
+    leg.appendChild(el('rect', { x: -8, y: -12, width: 196, height: 54, rx: 6, fill: 'rgba(255,255,255,0.92)', stroke: '#d8dfd9' }));
+    leg.appendChild(el('line', { x1: 0, y1: 0, x2: 18, y2: 0, stroke: '#1b4332', 'stroke-width': 2.8 }));
+    leg.appendChild(el('text', { x: 24, y: 3.5, 'font-size': 10, 'font-weight': 700, fill: '#1b4332' }, 'Val Accuracy'));
+    leg.appendChild(el('line', { x1: 0, y1: 16, x2: 18, y2: 16, stroke: '#b45309', 'stroke-width': 2.5 }));
+    leg.appendChild(el('text', { x: 24, y: 19.5, 'font-size': 10, 'font-weight': 700, fill: '#b45309' }, 'Val Macro-F1 (×100)'));
+    leg.appendChild(el('line', { x1: 0, y1: 32, x2: 18, y2: 32, stroke: '#8aa399', 'stroke-width': 2, 'stroke-dasharray': '4 3' }));
+    leg.appendChild(el('text', { x: 24, y: 35.5, 'font-size': 10, 'font-weight': 600, fill: '#5d6e65' }, 'Train Accuracy'));
+    svg.appendChild(leg);
+  }
+
+  /* ========================================================================
+     7. SLIDE 7 — LARGE, UNCROWDED TEST F1 & SOURCE ACCURACY CHARTS
      ======================================================================== */
   function renderTrackBF1(instant = false) {
     const svg = document.getElementById('trackb-f1-svg');
