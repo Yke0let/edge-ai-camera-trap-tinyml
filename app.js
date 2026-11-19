@@ -284,8 +284,8 @@
       { label: 'Macro-F1',      sub: 'Final Test',  val: 90.5,  color: '#1b4332', detail: '0.905 Macro-F1 across animal / empty / person / vehicle' }
     ];
 
-    const pad = { top: 36, right: 20, bottom: 52, left: 46 };
-    const W = 500, H = 310;
+    const pad = { top: 44, right: 16, bottom: 64, left: 52 };
+    const W = 500, H = 370;
     const innerW = W - pad.left - pad.right;
     const innerH = H - pad.top - pad.bottom;
     const yScale = (v) => pad.top + innerH - (v / 100) * innerH;
@@ -293,18 +293,18 @@
     // Gridlines
     [0, 25, 50, 75, 100].forEach((t) => {
       const y = yScale(t);
-      svg.appendChild(el('line', { x1: pad.left, y1: y, x2: W - pad.right, y2: y, stroke: '#e5ebe6', 'stroke-width': 1 }));
-      svg.appendChild(el('text', { x: pad.left - 8, y: y + 4, 'text-anchor': 'end', 'font-family': 'JetBrains Mono, monospace', 'font-size': 10.5, fill: '#5d6e65' }, `${t}%`));
+      svg.appendChild(el('line', { x1: pad.left, y1: y, x2: W - pad.right, y2: y, stroke: '#e5ebe6', 'stroke-width': 1.2 }));
+      svg.appendChild(el('text', { x: pad.left - 8, y: y + 4.5, 'text-anchor': 'end', 'font-family': 'JetBrains Mono, monospace', 'font-size': 12.5, fill: '#5d6e65' }, `${t}%`));
     });
 
     // Divider between Pilot and Final Pivot
     const midX = pad.left + innerW / 2;
-    svg.appendChild(el('line', { x1: midX, y1: 12, x2: midX, y2: H - pad.bottom + 8, stroke: '#cbd5ce', 'stroke-width': 1.5, 'stroke-dasharray': '5 4' }));
-    svg.appendChild(el('text', { x: pad.left + innerW * 0.25, y: 18, 'text-anchor': 'middle', 'font-size': 10.5, 'font-weight': 700, fill: '#b8422b' }, 'INITIAL BIRD PILOT'));
-    svg.appendChild(el('text', { x: pad.left + innerW * 0.75, y: 18, 'text-anchor': 'middle', 'font-size': 10.5, 'font-weight': 700, fill: '#1b4332' }, 'FINAL 4-CLASS PIVOT'));
+    svg.appendChild(el('line', { x1: midX, y1: 12, x2: midX, y2: H - pad.bottom + 8, stroke: '#cbd5ce', 'stroke-width': 1.8, 'stroke-dasharray': '6 4' }));
+    svg.appendChild(el('text', { x: pad.left + innerW * 0.25, y: 20, 'text-anchor': 'middle', 'font-size': 12.5, 'font-weight': 800, fill: '#b8422b' }, 'INITIAL BIRD PILOT'));
+    svg.appendChild(el('text', { x: pad.left + innerW * 0.75, y: 20, 'text-anchor': 'middle', 'font-size': 12.5, 'font-weight': 800, fill: '#1b4332' }, 'FINAL 4-CLASS PIVOT'));
 
     const colW = innerW / data.length;
-    const barW = 62;
+    const barW = 72;
 
     data.forEach((d, i) => {
       const x = pad.left + i * colW + (colW - barW) / 2;
@@ -314,7 +314,7 @@
       const rect = el('rect', {
         x, y: instant ? targetY : yScale(0),
         width: barW, height: instant ? targetH : 0,
-        rx: 7, fill: d.color, style: 'cursor:pointer;'
+        rx: 8, fill: d.color, style: 'cursor:pointer;'
       });
 
       if (!instant) {
@@ -330,18 +330,18 @@
       svg.appendChild(rect);
 
       svg.appendChild(el('text', {
-        x: x + barW / 2, y: targetY - 8, 'text-anchor': 'middle',
-        'font-family': 'JetBrains Mono, monospace', 'font-size': 12.5, 'font-weight': 700, fill: d.color
+        x: x + barW / 2, y: targetY - 10, 'text-anchor': 'middle',
+        'font-family': 'JetBrains Mono, monospace', 'font-size': 15.5, 'font-weight': 800, fill: d.color
       }, d.label === 'Macro-F1' ? '0.905' : `${d.val.toFixed(d.val % 1 === 0 ? 1 : 2)}%`));
 
       svg.appendChild(el('text', {
-        x: x + barW / 2, y: H - 26, 'text-anchor': 'middle',
-        'font-size': 11.5, 'font-weight': 700, fill: '#16221c'
+        x: x + barW / 2, y: H - 34, 'text-anchor': 'middle',
+        'font-size': 13.5, 'font-weight': 700, fill: '#16221c'
       }, d.label));
 
       svg.appendChild(el('text', {
-        x: x + barW / 2, y: H - 10, 'text-anchor': 'middle',
-        'font-size': 10, fill: '#5d6e65'
+        x: x + barW / 2, y: H - 14, 'text-anchor': 'middle',
+        'font-size': 11.5, fill: '#5d6e65'
       }, d.sub));
     });
   }
