@@ -124,7 +124,7 @@
     <!-- =====================================================================
          SLIDE 3 — FINAL DATASET & LEAKAGE-FREE SPLITS (Ecological Photo #2)
          ===================================================================== -->
-    <section class="slide photo-slide slide-bg-datasets" data-num="3" data-section="03 Dataset"
+    <section class="slide photo-slide slide-bg-datasets slide-dataset" data-num="3" data-section="03 Dataset"
       data-title="Final Dataset: 690,881 Images &amp; Zero-Leakage Splits"
       data-notes="For the four-class TinyML MegaDetector, we assembled 690,881 images across four complementary sources: Caltech Camera Traps (139 locations), Wildlife Conservation Society (3,742 locations), single-group COCO 2017 scenes, and ImageNet-1k for rare animal species and land vehicles. Splits are 80/10/10 — 552,657 train, 72,197 validation, and 66,027 test. Crucially, camera locations are assigned via a deterministic MD5 hash (with an independent split_v2 for rare classes), guaranteeing that no camera background ever leaks across splits.">
       <div class="stage">
@@ -144,10 +144,10 @@
                 <span class="tag tag-forest mono">690,881 Total</span>
               </div>
 
-              <div style="display:flex;flex-direction:column;gap:0.4rem;">
-                <div style="display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--ink-2);">
+              <div style="display:flex;flex-direction:column;gap:0.55rem;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:1.02rem;font-weight:700;color:var(--ink-2);">
                   <span>Location-Disjoint 80 / 10 / 10 Split</span>
-                  <span class="mono">320 px → 176×176</span>
+                  <span class="mono" style="font-size:0.94rem;color:var(--forest);">320 px → 176×176</span>
                 </div>
                 <div class="split-strip">
                   <div class="split-seg" style="width:80%;background:var(--forest);">Train · 552,657</div>
@@ -156,7 +156,7 @@
                 </div>
               </div>
 
-              <div style="display:flex;flex-direction:column;gap:0.65rem;">
+              <div style="display:flex;flex-direction:column;gap:0.95rem;">
                 <div class="bar-row">
                   <span style="font-weight:700;">animal</span>
                   <div class="bar-track"><div class="bar-fill" style="--w:100%;background:var(--forest);"></div></div>
@@ -179,7 +179,9 @@
                 </div>
               </div>
 
-              <p style="font-size:0.82rem;color:var(--mute);">Class imbalance (<span class="mono">34:1</span> animal vs. vehicle) handled via square-root inverse class weights during training.</p>
+              <div class="card-tint left-rule-amber ds-callout">
+                <p><strong>Imbalance Handling:</strong> Severe <span class="mono">34:1</span> skew (<span class="mono">animal</span> vs. <span class="mono">vehicle</span>) balanced via square-root inverse class weights during training.</p>
+              </div>
             </div>
 
             <div class="card-frosted-light rule-sage anim" style="--d:3;justify-content:space-between;">
@@ -190,25 +192,25 @@
 
               <div class="source-list">
                 <div class="source-item">
-                  <div><strong>WCS Camera Traps</strong><div style="font-size:0.76rem;color:var(--mute);">Global wildlife biodiversity sites (LILA BC)</div></div>
+                  <div><strong>WCS Camera Traps</strong><div class="src-sub">Global wildlife biodiversity sites (LILA BC)</div></div>
                   <span class="tag tag-forest mono">3,742 locs</span>
                 </div>
                 <div class="source-item">
-                  <div><strong>Caltech Camera Traps (CCT)</strong><div style="font-size:0.76rem;color:var(--mute);">South-western US sites + rescued human triggers</div></div>
+                  <div><strong>Caltech Camera Traps (CCT)</strong><div class="src-sub">South-western US sites + rescued human triggers</div></div>
                   <span class="tag tag-forest mono">139 locs</span>
                 </div>
                 <div class="source-item">
-                  <div><strong>COCO 2017</strong><div style="font-size:0.76rem;color:var(--mute);">Strictly single-group animal / person / vehicle scenes</div></div>
+                  <div><strong>COCO 2017</strong><div class="src-sub">Strictly single-group animal / person / vehicle scenes</div></div>
                   <span class="tag tag-slate mono">57.3k imgs</span>
                 </div>
                 <div class="source-item">
-                  <div><strong>ImageNet-1k</strong><div style="font-size:0.76rem;color:var(--mute);">398 animal species &amp; 40 land-vehicle categories</div></div>
+                  <div><strong>ImageNet-1k</strong><div class="src-sub">398 animal species &amp; 40 land-vehicle categories</div></div>
                   <span class="tag tag-amber mono">Diversity</span>
                 </div>
               </div>
 
-              <div class="card-tint left-rule-forest" style="padding:0.72rem 1rem;">
-                <p style="font-size:0.84rem;color:var(--ink-2);"><strong>Anti-Leakage Guarantee:</strong> Deterministic <strong>MD5 hash by camera location</strong> keeps every background strictly in one split (plus independent <span class="mono">split_v2</span> for scarce classes).</p>
+              <div class="card-tint left-rule-forest ds-callout">
+                <p><strong>Anti-Leakage Guarantee:</strong> Deterministic <strong>MD5 hash by camera location</strong> keeps every background strictly in one split (plus independent <span class="mono">split_v2</span> for scarce classes).</p>
               </div>
             </div>
           </div>
