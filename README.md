@@ -1,6 +1,6 @@
 # TinyML MegaDetector: Edge AI for Camera-Trap Wildlife Monitoring (`mcunet-in3`)
 
-**Interactive 12-Slide Academic Presentation** · *AIMS · AI for Science: Deep Learning for Ecology*
+**Interactive 13-Slide Academic Presentation** · *AIMS · AI for Science: Deep Learning for Ecology*
 
 > **Live Web Presentation (GitHub Pages):**  
 > **[https://yke0let.github.io/edge-ai-camera-trap-tinyml/#1](https://yke0let.github.io/edge-ai-camera-trap-tinyml/#1)**
@@ -16,7 +16,7 @@ Our goal is to filter camera-trap frames directly on microcontrollers (`SRAM ≤
 
 ---
 
-## Slide Index (12 Slides)
+## Slide Index (13 Slides)
 
 1. **`#1` Title Slide** *(Woodland dawn backdrop)*: Project focus and team attribution
 2. **`#2` Ecological Context** *(Camera-trap woodland backdrop)*: Empty-frame flood, off-grid limits & TinyML edge objective
@@ -30,12 +30,13 @@ Our goal is to filter camera-trap frames directly on microcontrollers (`SRAM ≤
 10. **`#10` Diagnostic Error Audit**: 4×4 confusion matrix & `91.8%` `animal ↔ empty` error concentration
 11. **`#11` Visual Proof (Real Camera-Trap Frames)**: Real WCS & CCT field inputs vs. actual `animal ↔ empty` test failure cases
 12. **`#12` Technical Risks, Limitations & Next Steps** *(Nocturnal forest backdrop)*: Closing the SRAM spike, improving training data & patch detection on original images (`35 ms` latency), and licensing governance
+13. **`#13` On-Device Hardware Deployment**: Real `160×120` RGB outdoor captures taken and classified by our deployed equipment (`animal`, `person`, `vehicle`)
 
 ---
 
 ## Controls & Local Preview
 
-- **Keyboard:** `←` / `→` or `Space`, `1`–`9` / `0` quick jump, `O` slide overview grid, `N` speaker notes, `R` replay animations, `Ctrl+P` for clean 16:9 12-page PDF.
+- **Keyboard:** `←` / `→` or `Space`, `1`–`9` / `0` quick jump, `O` slide overview grid, `N` speaker notes, `R` replay animations, `Ctrl+P` for clean 16:9 13-page PDF.
 
 ```bash
 python3 -m http.server 8000
