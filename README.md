@@ -9,7 +9,7 @@
 
 ## Research Story
 
-Our goal is to filter camera-trap frames directly on microcontrollers (`SRAM ≤ 320 KB`, `Flash ≤ 1 MB`, `Latency < 15 s / frame`):
+Our goal is to filter camera-trap frames directly on microcontrollers (`SRAM ≤ 320 KB`, `Flash ≤ 1 MB`, `Latency: 35 ms / frame`):
 
 1. **Initial Bird Pilot (`bird` vs. `not_bird`, `36,193` imgs):** Because birds are small and agile, low `176×176` edge resolution caused OOD accuracy to drop from `85.45%` (val) to **`66.39%`** with only **`45.0%` bird recall** (`82%` of mistakes = missed birds).
 2. **Strategic Pivot to 4-Class TinyML MegaDetector (`animal / empty / person / vehicle`, `690,881` imgs):** Aligning the class taxonomy to edge-camera resolution unlocks **`88.47%` test accuracy** and **`0.905` macro-F1** across `66,027` held-out test images in **`786 KB` INT8 Flash** (`577,052` params).
@@ -29,7 +29,7 @@ Our goal is to filter camera-trap frames directly on microcontrollers (`SRAM ≤
 9. **`#9` Held-Out Test Results (`66,027` Images)**: Per-class F1 (`0.905` macro) & per-source accuracy (`88.47%` overall)
 10. **`#10` Diagnostic Error Audit**: 4×4 confusion matrix & `91.8%` `animal ↔ empty` error concentration
 11. **`#11` Visual Proof (Real Camera-Trap Frames)**: Real WCS & CCT field inputs vs. actual `animal ↔ empty` test failure cases
-12. **`#12` Technical Risks, Limitations & Next Steps** *(Nocturnal forest backdrop)*: Closing the SRAM spike, on-board latency bench & licensing governance
+12. **`#12` Technical Risks, Limitations & Next Steps** *(Nocturnal forest backdrop)*: Closing the SRAM spike, improving training data & patch detection on original images (`35 ms` latency), and licensing governance
 
 ---
 

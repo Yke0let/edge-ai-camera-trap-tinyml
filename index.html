@@ -23,7 +23,7 @@
          ===================================================================== -->
     <section class="slide photo-slide slide-bg-title" data-num="1" data-section="01 Title"
       data-title="TinyML MegaDetector: Edge AI for Wildlife Monitoring"
-      data-notes="Welcome everyone. Today we present our TinyML project for autonomous camera-trap wildlife monitoring using mcunet-in3. Designed for strict microcontroller constraints (320 KB SRAM, 1 MB Flash, and under 15 seconds per frame), our classifier filters camera-trap frames directly on-device into four classes: animal, empty, person, and vehicle.">
+      data-notes="Welcome everyone. Today we present our TinyML project for autonomous camera-trap wildlife monitoring using mcunet-in3. Running within strict microcontroller constraints (320 KB SRAM, 1 MB Flash, and 35 ms measured latency per frame), our classifier filters camera-trap frames directly on-device into four classes: animal, empty, person, and vehicle.">
       <div class="stage title-stage">
         <div class="title-content">
           <div class="title-kicker anim" style="--d:1">
@@ -66,8 +66,8 @@
 
         <div class="body-area">
           <div class="grid-2-asym" style="grid-template-columns:1.14fr 0.86fr;">
-            <div class="col-stack" style="justify-content:space-between;gap:1.8vh;">
-              <div class="card card-hero-copy left-rule-terracotta anim" style="--d:2;flex:1 1 auto;justify-content:center;">
+            <div class="pivot-stack">
+              <div class="pivot-block pivot-phase1 anim" style="--d:2;">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;">
                   <span class="card-title">Phase 1 · Initial Goal: Bird vs. Not-Bird</span>
                   <span class="tag tag-alert mono">45.0% Bird Recall</span>
@@ -79,7 +79,9 @@
                 </ul>
               </div>
 
-              <div class="card card-hero-copy left-rule-forest anim" style="--d:3;flex:1 1 auto;justify-content:center;background:var(--sage-soft);border-color:#c2dacb;">
+              <div class="pivot-divider anim" style="--d:3;"></div>
+
+              <div class="pivot-block pivot-phase2 anim" style="--d:3;">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;">
                   <span class="card-title" style="color:var(--forest);">Phase 2 · Final Solution: 4-Class TinyML MegaDetector</span>
                   <span class="tag tag-forest mono">88.47% Test Acc</span>
@@ -837,13 +839,13 @@
          ===================================================================== -->
     <section class="slide photo-slide slide-bg-closing" data-num="12" data-section="12 Next Steps"
       data-title="Technical Risks, Limitations &amp; Next Steps"
-      data-notes="Three concrete priorities take this model from lab benchmark to autonomous field deployment. First, eliminate explicit PAD ops or compile via TinyEngine with a NumPy < 2 patch against the int8=128 OverflowError so SRAM drops under 320 KB. Second, run the final C-array export cells (model_data.h/.cc and main_example.cc), measure true on-board inference latency against our 15-second budget, and migrate from tf.lite.Interpreter to ai_edge_litert. Third, improve night IR animal-versus-empty separation in dense foliage, and replace non-commercial ImageNet-1k (and CUB-200 from the pilot) before any commercial deployment.">
+      data-notes="Three concrete priorities take this model further in the field. First, eliminate explicit PAD ops or compile via TinyEngine with a NumPy < 2 patch against the int8=128 OverflowError so SRAM drops under 320 KB. Second, with measured inference latency already at just 35 ms per frame, our next step is to further improve the training dataset and run patch detection on the original high-resolution image to improve video and frame quality. Third, improve night IR animal-versus-empty separation in dense foliage, and replace non-commercial ImageNet-1k (and CUB-200 from the pilot) before any commercial deployment.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
           <div class="eyebrow">12 · Risks &amp; Roadmap</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Three Steps to Autonomous Field Deployment</h1>
-            <span class="tag tag-dark mono">Hardware · Field QA · Licensing</span>
+            <span class="tag tag-dark mono">SRAM · Data &amp; Patches · Licensing</span>
           </div>
         </header>
 
@@ -866,15 +868,15 @@
             <div class="card-frosted-dark rule-amber anim" style="--d:3;padding:1.45rem 1.55rem;gap:1rem;">
               <div>
                 <div class="card-head">
-                  <span class="card-title">2. On-Board Verification</span>
-                  <span class="tag tag-amber mono">&lt; 15 s</span>
+                  <span class="card-title">2. Data &amp; Patch Detection</span>
+                  <span class="tag tag-amber mono">35 ms</span>
                 </div>
                 <ul class="clean-list list-amber" style="margin-top:0.85rem;">
-                  <li>Execute final C export (<span class="mono">model_data.h/.cc</span>, <span class="mono">main_example.cc</span>) &amp; benchmark real MCU latency.</li>
-                  <li>Migrate inference wrapper from <span class="mono">tf.lite.Interpreter</span> to <span class="mono">ai_edge_litert</span>.</li>
+                  <li>Further <strong>improve and expand training data</strong> to strengthen generalization across hard field scenes.</li>
+                  <li>Perform <strong>patch detection on the original image</strong> to preserve fine detail and improve video quality.</li>
                 </ul>
               </div>
-              <div style="padding-top:0.65rem;margin-top:auto;border-top:1px solid rgba(255,255,255,0.14);font-size:0.78rem;color:#f5d093;">Confirms real power &amp; latency</div>
+              <div style="padding-top:0.65rem;margin-top:auto;border-top:1px solid rgba(255,255,255,0.14);font-size:0.78rem;color:#f5d093;">Measured latency: 35 ms / frame (ample headroom)</div>
             </div>
 
             <div class="card-frosted-dark rule-forest anim" style="--d:4;padding:1.45rem 1.55rem;gap:1rem;">
