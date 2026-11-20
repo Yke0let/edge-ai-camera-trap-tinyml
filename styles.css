@@ -1797,60 +1797,31 @@ h1.slide-title {
 /* ==========================================================================
    DEPLOYED EQUIPMENT FIELD GALLERY (SLIDE 13)
    ========================================================================== */
-.slide-deploy .deploy-layout {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 0.38fr 0.62fr;
-  gap: 2.4vw;
-  align-items: stretch;
-}
-
-.slide-deploy .deploy-info {
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+.slide-deploy .deploy-body {
+  align-items: center;
   justify-content: center;
-  gap: 2vh;
-  padding: 0.2rem 0.4rem 0.2rem 0;
-}
-
-.slide-deploy .deploy-info .card-title {
-  font-size: clamp(1.22rem, 1.48vw, 1.48rem);
-}
-
-.slide-deploy .deploy-info .card-text {
-  font-size: clamp(1.02rem, 1.18vw, 1.20rem);
-  line-height: 1.46;
-}
-
-.slide-deploy .deploy-closing {
-  margin-top: 0.6vh;
-  padding-top: 1.2vh;
-  border-top: 1.5px solid var(--line);
-  font-size: clamp(0.95rem, 1.12vw, 1.12rem);
-  font-weight: 700;
-  color: var(--forest);
-  letter-spacing: 0.03em;
 }
 
 .slide-deploy .deploy-grid {
+  flex: 1 1 auto;
   min-height: 0;
+  width: min(100%, 116vh);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 1.4vw;
+  gap: 1.8vh 1.6vw;
   align-items: stretch;
 }
 
 .slide-deploy .deploy-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: #101814;
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   min-height: 0;
 }
 
@@ -1871,42 +1842,46 @@ h1.slide-title {
 }
 
 .slide-deploy .sample-badge {
-  font-size: clamp(0.72rem, 0.84vw, 0.86rem);
-  padding: 0.22rem 0.62rem;
+  top: 12px;
+  left: 12px;
+  font-size: clamp(0.76rem, 0.90vw, 0.92rem);
+  padding: 0.26rem 0.72rem;
 }
 
 .deploy-badge-slate {
-  background: rgba(53, 92, 125, 0.90);
+  background: rgba(53, 92, 125, 0.92);
   color: #edf4fa;
   border: 1px solid rgba(198, 215, 230, 0.45);
 }
 
 .deploy-badge-amber {
-  background: rgba(180, 83, 9, 0.90);
+  background: rgba(180, 83, 9, 0.92);
   color: #fef6e9;
   border: 1px solid rgba(243, 210, 162, 0.45);
 }
 
-.slide-deploy .deploy-cap {
-  flex: 0 0 auto;
-  padding: 0.55rem 0.9rem;
+.slide-deploy .deploy-overlay-cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.4rem 1rem 0.65rem;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 0.5rem;
-  border-top: 1px solid var(--line);
-  background: var(--surface);
+  gap: 0.6rem;
+  background: linear-gradient(180deg, rgba(10, 18, 14, 0) 0%, rgba(10, 18, 14, 0.78) 68%, rgba(10, 18, 14, 0.90) 100%);
 }
 
-.slide-deploy .deploy-cap strong {
-  font-size: clamp(0.86rem, 0.98vw, 1.02rem);
-  color: var(--ink);
+.slide-deploy .deploy-overlay-cap strong {
+  font-size: clamp(0.92rem, 1.08vw, 1.12rem);
+  color: #ffffff;
   line-height: 1.2;
 }
 
-.slide-deploy .deploy-cap span {
-  font-size: clamp(0.74rem, 0.82vw, 0.84rem);
-  color: var(--mute);
+.slide-deploy .deploy-overlay-cap span {
+  font-size: clamp(0.76rem, 0.86vw, 0.90rem);
+  color: rgba(226, 236, 230, 0.86);
   white-space: nowrap;
 }
 
