@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TinyML MegaDetector — Interactive 9-Slide Deck Controller
+   TinyML MegaDetector: Interactive 12-Slide Deck Controller
    Zero-dependency navigation, animated MCUNet-in3 SVG, & interactive charts
    ========================================================================== */
 
@@ -90,11 +90,11 @@
     if (idx === 1) renderPivotChart(instant);
     if (idx === 4) renderMCUNetArch(instant);
     if (idx === 5) renderTrainingCurve(instant);
-    if (idx === 6) {
+    if (idx === 8) {
       renderTrackBF1(instant);
       renderTrackBSources(instant);
     }
-    if (idx === 7) renderTrackBErrors(instant);
+    if (idx === 9) renderTrackBErrors(instant);
   }
 
   function goTo(idx, opts = {}) {
@@ -268,7 +268,7 @@
   }
 
   /* ========================================================================
-     4. SLIDE 2 — ANIMATED BIRD PILOT vs. 4-CLASS PIVOT CHART
+     4. SLIDE 2: ANIMATED BIRD PILOT vs. 4-CLASS PIVOT CHART
      ======================================================================== */
   function renderPivotChart(instant = false) {
     const svg = document.getElementById('pivot-chart-svg');
@@ -347,7 +347,7 @@
   }
 
   /* ========================================================================
-     5. SLIDE 5 — CLEAN SINGLE-HEAD MCUNET-IN3 ARCHITECTURE SVG
+     5. SLIDE 5: CLEAN SINGLE-HEAD MCUNET-IN3 ARCHITECTURE SVG
         Exact verified topology from megadetector_mcunet_in3_config.json
      ======================================================================== */
   const MCUNET_BLOCKS = [
@@ -543,7 +543,7 @@
   }
 
   /* ========================================================================
-     6. SLIDE 6 — REAL 11-EPOCH TWO-PHASE TRAINING CURVE (outputs/history.csv)
+     6. SLIDE 6: REAL 11-EPOCH TWO-PHASE TRAINING CURVE (outputs/history.csv)
      ======================================================================== */
   const HISTORY_EPOCHS = [
     { idx: 1,  tag: 'H1', phase: 'Phase 1 · Head',     trAcc: 77.2, valAcc: 81.8, valF1: 80.0,  valLoss: 0.852 },
@@ -633,7 +633,7 @@
     // Interactive Data Points
     HISTORY_EPOCHS.forEach((d) => {
       const x = xScale(d.idx);
-      const html = `<strong>${d.tag} — ${d.phase}</strong><br/>` +
+      const html = `<strong>${d.tag} · ${d.phase}</strong><br/>` +
         `Val Acc: <code>${d.valAcc.toFixed(1)}%</code> · Val Macro-F1: <code>${(d.valF1 / 100).toFixed(4)}</code><br/>` +
         `Train Acc: <code>${d.trAcc.toFixed(1)}%</code> · Val Loss: <code>${d.valLoss.toFixed(3)}</code>`;
 
@@ -661,7 +661,7 @@
   }
 
   /* ========================================================================
-     7. SLIDE 7 — LARGE, UNCROWDED TEST F1 & SOURCE ACCURACY CHARTS
+     7. SLIDE 9: LARGE, UNCROWDED TEST F1 & SOURCE ACCURACY CHARTS
      ======================================================================== */
   function renderTrackBF1(instant = false) {
     const svg = document.getElementById('trackb-f1-svg');
@@ -798,7 +798,7 @@
   }
 
   /* ========================================================================
-     7. SLIDE 7 — ANIMATED ERROR CONCENTRATION DONUT (91.8% animal <-> empty)
+     8. SLIDE 10: ANIMATED ERROR CONCENTRATION DONUT (91.8% animal <-> empty)
      ======================================================================== */
   function renderTrackBErrors(instant = false) {
     const svg = document.getElementById('trackb-err-svg');

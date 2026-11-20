@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TinyML MegaDetector — 9-Slide Academic Presentation
+   TinyML MegaDetector: 12-Slide Academic Presentation
    Sober Scientific Ecology Editorial Design · Airy, High-Readability Layout
    ========================================================================== */
 
@@ -732,7 +732,7 @@ h1.slide-title {
 .clean-list.list-amber li::before { background: var(--amber); }
 
 /* ==========================================================================
-   SLIDE 1 — TITLE SLIDE
+   SLIDE 1: TITLE SLIDE
    ========================================================================== */
 .title-stage {
   justify-content: center;

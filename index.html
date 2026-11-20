@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TinyML MegaDetector — Edge AI for Camera-Trap Wildlife Monitoring (12 Slides)</title>
+  <title>TinyML MegaDetector: Edge AI for Camera-Trap Wildlife Monitoring (12 Slides)</title>
   <meta name="description" content="12-slide academic research presentation on Edge AI camera-trap wildlife monitoring with mcunet-in3, pivoting from bird detection to a 4-class TinyML MegaDetector." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,15 +15,15 @@
   <!-- TOP 12-SEGMENT PROGRESS NAVIGATION -->
   <nav id="secbar" aria-label="Slide navigation"></nav>
 
-  <!-- MAIN DECK CONTAINER — 12 AIRY SLIDES -->
+  <!-- MAIN DECK CONTAINER: 12 AIRY SLIDES -->
   <main id="deck-root">
 
     <!-- =====================================================================
-         SLIDE 1 — TITLE SLIDE (Ecological Photo #1 + Dark Scrim)
+         SLIDE 1: TITLE SLIDE (Ecological Photo #1 + Dark Scrim)
          ===================================================================== -->
     <section class="slide photo-slide slide-bg-title" data-num="1" data-section="01 Title"
       data-title="TinyML MegaDetector: Edge AI for Wildlife Monitoring"
-      data-notes="Welcome everyone. Today we present our TinyML project for autonomous camera-trap wildlife monitoring using mcunet-in3. Designed for strict microcontroller constraints — 320 KB SRAM, 1 MB Flash, and under 15 seconds per frame — our classifier filters camera-trap frames directly on-device into four classes: animal, empty, person, and vehicle.">
+      data-notes="Welcome everyone. Today we present our TinyML project for autonomous camera-trap wildlife monitoring using mcunet-in3. Designed for strict microcontroller constraints (320 KB SRAM, 1 MB Flash, and under 15 seconds per frame), our classifier filters camera-trap frames directly on-device into four classes: animal, empty, person, and vehicle.">
       <div class="stage title-stage">
         <div class="title-content">
           <div class="title-kicker anim" style="--d:1">
@@ -38,23 +38,10 @@
           </h1>
 
           <p class="title-sub anim" style="--d:3">
-            A <strong style="color:#ffffff;">TinyML MegaDetector</strong> built on <span class="mono" style="color:#cbe7d7;font-weight:700;">mcunet-in3</span> — trained on <strong style="color:#ffffff;">690,881</strong> images to filter camera-trap frames directly on microcontrollers.
+            A <strong style="color:#ffffff;">TinyML MegaDetector</strong> trained on <strong style="color:#ffffff;">690,881</strong> images
           </p>
 
-          <div class="class-strip anim" style="--d:4">
-            <span class="class-chip">animal</span>
-            <span class="class-chip">empty</span>
-            <span class="class-chip">person</span>
-            <span class="class-chip">vehicle</span>
-          </div>
-
-          <div class="mcu-badges anim" style="--d:5">
-            <div class="mcu-badge"><span class="dot-live"></span><span>SRAM <strong class="mono">≤ 320 KB</strong></span></div>
-            <div class="mcu-badge"><span class="dot-live"></span><span>Flash <strong class="mono">≤ 1 MB</strong></span></div>
-            <div class="mcu-badge"><span class="dot-live"></span><span>Latency <strong class="mono">&lt; 15 s</strong></span></div>
-          </div>
-
-          <div class="title-footer anim" style="--d:6">
+          <div class="title-footer anim" style="--d:4">
             <span><strong>Team:</strong> Matthew Busoye · Halik Mamam · Franck Tchangani</span>
             <span class="mono" style="opacity:0.82;">November 2026</span>
           </div>
@@ -63,11 +50,11 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 2 — MOTIVATION & WHY WE PIVOTED FROM BIRDS TO 4 CLASSES
+         SLIDE 2: MOTIVATION & WHY WE PIVOTED FROM BIRDS TO 4 CLASSES
          ===================================================================== -->
     <section class="slide" data-num="2" data-section="02 Pivot"
       data-title="From Bird Detection to TinyML MegaDetector"
-      data-notes="Remote camera traps capture millions of empty wind-triggered frames, draining battery and SD storage. Our initial goal was a binary Bird vs. Not-Bird classifier on mcunet-in3 (36,193 images). However, birds are tiny and agile, and at 176x176 edge resolution unseen-dataset accuracy dropped to 66.39% with only 45.0% bird recall — 82% of errors were missed birds. We therefore pivoted to four general MegaDetector classes — animal, empty, person, and vehicle — which fit the hardware's resolution and reach 88.47% test accuracy and 0.905 macro-F1.">
+      data-notes="Remote camera traps capture millions of empty wind-triggered frames, draining battery and SD storage. Our initial goal was a binary Bird vs. Not-Bird classifier on mcunet-in3 (36,193 images). However, birds are tiny and agile, and at 176x176 edge resolution unseen-dataset accuracy dropped to 66.39% with only 45.0% bird recall, with 82% of errors being missed birds. We therefore pivoted to four general MegaDetector classes (animal, empty, person, and vehicle), which fit the hardware's resolution and reach 88.47% test accuracy and 0.905 macro-F1.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
           <div class="eyebrow">02 · Field Motivation &amp; Research Pivot</div>
@@ -87,7 +74,7 @@
                 </div>
                 <ul class="clean-list list-alert">
                   <li>Trained <span class="mono">mcunet-in3</span> on <span class="mono">36,193</span> images (<span class="mono">85.45%</span> val on held-out cameras).</li>
-                  <li>Collapsed to <span class="mono t-alert">66.39%</span> on 4 unseen datasets — <strong><span class="mono">82%</span> of errors (<span class="mono">1,761 / 2,151</span>) were missed birds</strong>.</li>
+                  <li>Collapsed to <span class="mono t-alert">66.39%</span> on 4 unseen datasets: <strong><span class="mono">82%</span> of errors (<span class="mono">1,761 / 2,151</span>) were missed birds</strong>.</li>
                   <li><strong>Physical bottleneck:</strong> small bird size, rapid agility/blur, and low <span class="mono">176×176</span> MCU input resolution.</li>
                 </ul>
               </div>
@@ -98,7 +85,7 @@
                   <span class="tag tag-forest mono">88.47% Test Acc</span>
                 </div>
                 <ul class="clean-list">
-                  <li>Pivoted to <strong class="mono">animal · empty · person · vehicle</strong> — matching what <span class="mono">176×176</span> optics resolve reliably.</li>
+                  <li>Pivoted to <strong class="mono">animal · empty · person · vehicle</strong>, matching what <span class="mono">176×176</span> optics resolve reliably.</li>
                   <li>Discards wind-triggered <strong>empty frames on-device</strong>, saving battery, SD storage, and transmission bandwidth.</li>
                   <li>Scales cleanly to <span class="mono">690,881</span> images with <span class="mono t-forest">0.905</span> macro-F1 in <span class="mono">786 KB</span> INT8 Flash.</li>
                 </ul>
@@ -114,7 +101,7 @@
                 <svg id="pivot-chart-svg" viewBox="0 0 500 370" style="width:100%;height:100%;" role="img" aria-label="Comparison of Bird Pilot vs Final 4-Class TinyML MegaDetector accuracy and recall"></svg>
                 <div id="pivot-tooltip" class="arch-tooltip"></div>
               </div>
-              <p style="font-size:0.98rem;color:var(--ink-2);line-height:1.45;">Same <span class="mono">mcunet-in3</span> backbone (<span class="mono">~577k</span> params, <span class="mono">786 KB</span> INT8) — aligning the task to low-resolution edge hardware unlocks field-grade accuracy.</p>
+              <p style="font-size:0.98rem;color:var(--ink-2);line-height:1.45;">Same <span class="mono">mcunet-in3</span> backbone (<span class="mono">~577k</span> params, <span class="mono">786 KB</span> INT8): aligning the task to low-resolution edge hardware unlocks field-grade accuracy.</p>
             </div>
           </div>
         </div>
@@ -122,11 +109,11 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 3 — FINAL DATASET & LEAKAGE-FREE SPLITS (Ecological Photo #2)
+         SLIDE 3: FINAL DATASET & LEAKAGE-FREE SPLITS (Ecological Photo #2)
          ===================================================================== -->
     <section class="slide photo-slide slide-bg-datasets slide-dataset" data-num="3" data-section="03 Dataset"
       data-title="Final Dataset: 690,881 Images &amp; Zero-Leakage Splits"
-      data-notes="For the four-class TinyML MegaDetector, we assembled 690,881 images across four complementary sources: Caltech Camera Traps (139 locations), Wildlife Conservation Society (3,742 locations), single-group COCO 2017 scenes, and ImageNet-1k for rare animal species and land vehicles. Splits are 80/10/10 — 552,657 train, 72,197 validation, and 66,027 test. Crucially, camera locations are assigned via a deterministic MD5 hash (with an independent split_v2 for rare classes), guaranteeing that no camera background ever leaks across splits.">
+      data-notes="For the four-class TinyML MegaDetector, we assembled 690,881 images across four complementary sources: Caltech Camera Traps (139 locations), Wildlife Conservation Society (3,742 locations), single-group COCO 2017 scenes, and ImageNet-1k for rare animal species and land vehicles. Splits are 80/10/10 (552,657 train, 72,197 validation, and 66,027 test). Crucially, camera locations are assigned via a deterministic MD5 hash (with an independent split_v2 for rare classes), guaranteeing that no camera background ever leaks across splits.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
           <div class="eyebrow">03 · Multi-Source Corpus &amp; Spatial Splits</div>
@@ -219,7 +206,7 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 4 — TEACHER-GUIDED DATA CLEANING PIPELINE (MDv5a)
+         SLIDE 4: TEACHER-GUIDED DATA CLEANING PIPELINE (MDv5a)
          ===================================================================== -->
     <section class="slide slide-cleaning" data-num="4" data-section="04 Cleaning"
       data-title="Teacher-Guided Data Cleaning (MDv5a)"
@@ -277,7 +264,7 @@
               <div class="stat-tile left-rule-amber">
                 <span class="stat-tile-num t-amber">~1,750</span>
                 <div class="card-title">"Goose" / "Mongoose" Bug</div>
-                <p class="card-text">Substring matching mislabeled mongooses as birds — fixed via LILA <span class="mono">Aves</span> taxonomy priority.</p>
+                <p class="card-text">Substring matching mislabeled mongooses as birds, fixed via LILA <span class="mono">Aves</span> taxonomy priority.</p>
               </div>
               <div class="stat-tile left-rule-forest">
                 <span class="stat-tile-num t-forest">Explicit</span>
@@ -291,11 +278,11 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 5 — MODEL ARCHITECTURE: mcunet-in3 (Animated Interactive SVG)
+         SLIDE 5: MODEL ARCHITECTURE: mcunet-in3 (Animated Interactive SVG)
          ===================================================================== -->
     <section class="slide" data-num="5" data-section="05 Architecture"
       data-title="Model Architecture: mcunet-in3"
-      data-notes="Our backbone is ImageNet-pretrained mcunet-in3 (ProxylessNASNets): 62.2% ImageNet Top-1 FP32, ~81.8M MACs (82.96M in TFLite), and a published TinyEngine reference footprint of 293 KB SRAM and 897 KB Flash. Inputs enter at 176x176x3 normalized to [-1, 1], pass through first_conv (3 to 16, 3x3 stride 2), 18 MBInvertedConvLayer blocks with 3x3, 5x5, and 7x7 depthwise kernels and 11 residual skip connections, Global Average Pooling (160-D), and our custom 4-class LinearLayer head with 0.25 dropout — totaling 577,052 parameters.">
+      data-notes="Our backbone is ImageNet-pretrained mcunet-in3 (ProxylessNASNets): 62.2% ImageNet Top-1 FP32, ~81.8M MACs (82.96M in TFLite), and a published TinyEngine reference footprint of 293 KB SRAM and 897 KB Flash. Inputs enter at 176x176x3 normalized to [-1, 1], pass through first_conv (3 to 16, 3x3 stride 2), 18 MBInvertedConvLayer blocks with 3x3, 5x5, and 7x7 depthwise kernels and 11 residual skip connections, Global Average Pooling (160-D), and our custom 4-class LinearLayer head with 0.25 dropout, totaling 577,052 parameters.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
           <div class="eyebrow">05 · TinyNAS Backbone</div>
@@ -343,11 +330,11 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 6 — NEW! TWO-PHASE GPU TRAINING DYNAMICS (Real history.csv)
+         SLIDE 6: TWO-PHASE GPU TRAINING DYNAMICS (Real history.csv)
          ===================================================================== -->
     <section class="slide" data-num="6" data-section="06 Training"
       data-title="Two-Phase GPU Training Dynamics &amp; Ecology Augmentations"
-      data-notes="We train on CUDA GPU in two deliberate phases totaling ~1 hour 16 minutes. In Phase 1 (epochs 1–3), the backbone and its BatchNorm statistics remain frozen while the randomly initialized head learns with AdamW 1e-3, reaching 82.5% validation accuracy. At epoch 4 we unfreeze the full network with differential learning rates (6e-5 backbone, 3e-4 head) and CosineAnnealingLR: validation accuracy immediately jumps +7.5 points to 90.0% (0.8994 macro-F1) at fine-tune epoch 2, where the best checkpoint is saved before early stopping prevents overfitting. Three ecology-specific choices drive generalization: RandomGrayscale p=0.25 simulating night infrared frames, square-root inverse weights for the 34:1 imbalance, and no-crop evaluation so border animals are never clipped.">
+      data-notes="We train on CUDA GPU in two deliberate phases totaling ~1 hour 16 minutes. In Phase 1 (epochs 1 to 3), the backbone and its BatchNorm statistics remain frozen while the randomly initialized head learns with AdamW 1e-3, reaching 82.5% validation accuracy. At epoch 4 we unfreeze the full network with differential learning rates (6e-5 backbone, 3e-4 head) and CosineAnnealingLR: validation accuracy immediately jumps +7.5 points to 90.0% (0.8994 macro-F1) at fine-tune epoch 2, where the best checkpoint is saved before early stopping prevents overfitting. Three ecology-specific choices drive generalization: RandomGrayscale p=0.25 simulating night infrared frames, square-root inverse weights for the 34:1 imbalance, and no-crop evaluation so border animals are never clipped.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
           <div class="eyebrow">06 · Optimization &amp; Field Augmentations</div>
@@ -359,7 +346,6 @@
 
         <div class="body-area">
           <div class="grid-2-asym">
-            <!-- Left: Animated 11-Epoch Curve from outputs/history.csv -->
             <div class="card anim" style="--d:2;justify-content:space-between;">
               <div class="card-head">
                 <span class="card-title">Real Training Trajectory (<span class="mono">history.csv</span> · 11 Epochs)</span>
@@ -369,10 +355,9 @@
                 <svg id="train-curve-svg" viewBox="0 0 600 300" style="width:100%;height:100%;" role="img" aria-label="Two-phase training curve showing Phase 1 head-only epochs 1 to 3 and Phase 2 full fine-tuning epochs 4 to 11 reaching 90.0% val accuracy and 0.8994 macro-F1"></svg>
                 <div id="train-curve-tooltip" class="arch-tooltip"></div>
               </div>
-              <p style="font-size:0.8rem;color:var(--mute);">Unfreezing the backbone at Epoch 4 delivers a sharp <span class="mono t-forest">+7.5 pp</span> validation jump; early stopping halts after 6 stagnant epochs.</p>
+              <p style="font-size:0.84rem;color:var(--mute);">Unfreezing the backbone at Epoch 4 delivers a sharp <span class="mono t-forest">+7.5 pp</span> validation jump; early stopping halts after 6 stagnant epochs.</p>
             </div>
 
-            <!-- Right: 3 Clean Ecology-Driven Training Decisions -->
             <div class="col-stack" style="justify-content:space-between;">
               <div class="card left-rule-forest anim" style="--d:3;flex:1 1 auto;justify-content:center;">
                 <div class="card-title">1. Differential 2-Phase Schedule</div>
@@ -386,7 +371,7 @@
 
               <div class="card left-rule-amber anim" style="--d:5;flex:1 1 auto;justify-content:center;">
                 <div class="card-title">3. No-Crop Evaluation Geometry</div>
-                <p class="card-text">Full frames are squashed to <span class="mono">176×176</span> without center-cropping during val/test — ensuring wildlife entering along frame borders is never discarded.</p>
+                <p class="card-text">Full frames are squashed to <span class="mono">176×176</span> without center-cropping during val/test, ensuring wildlife entering along frame borders is never discarded.</p>
               </div>
             </div>
           </div>
@@ -395,14 +380,241 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 7 — TEST RESULTS ON 66,027 HELD-OUT IMAGES (Ultra-Pure!)
+         SLIDE 7 (moved before Results): CUSTOM TF2 REBUILDER & INT8 PARITY
          ===================================================================== -->
-    <section class="slide" data-num="7" data-section="07 Results"
-      data-title="Test Performance: 88.47% Accuracy &amp; 0.905 Macro-F1"
-      data-notes="Evaluated across all 66,027 held-out test images from unseen camera locations, the FP32 model achieves 88.47% overall accuracy and 0.905 macro-F1 — matching its 90.0% / 0.8994 validation score closely. Square-root class weighting keeps rare vehicle (0.948) and person (0.936) classes exceptionally strong. Across sources, COCO reaches 94.5%, CCT 92.1%, and ImageNet 91.0%, while dense-foliage WCS camera traps (40,000 test images) represent the toughest environment at 85.8%.">
+    <section class="slide" data-num="7" data-section="07 INT8 Export"
+      data-title="Custom TF2 Rebuilder &amp; INT8 Quantization Parity"
+      data-notes="MCUNet's official TFLite converter relies on TensorFlow 1 tf.Session and fails on modern TF2. We built a custom PyTorch-to-TF2 NHWC rebuilder with float64 BatchNorm folding and exact explicit padding, matching PyTorch logits within 2.21e-6. Full INT8 post-training quantization yields input scale 0.00784314 and zero point -1, so microcontroller preprocessing reduces to pure integer q = pixel - 128 without a single floating-point operation. On 500 held-out test images, INT8 scores 87.6% versus 88.2% FP32 (94.6% agreement), and across our 384-image calibration audit INT8 achieves 100.0% exact agreement (226 out of 226) whenever PyTorch confidence exceeds 0.7.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">07 · Held-Out Test Benchmarks</div>
+          <div class="eyebrow">07 · Edge Conversion &amp; Quantization Fidelity</div>
+          <div class="slide-header-row">
+            <h1 class="slide-title">Custom TF2 Rebuilder Achieves <span class="mono t-forest">100%</span> INT8 Parity Above <span class="mono">0.7</span> Conf</h1>
+            <span class="tag tag-forest mono">Full INT8 · Zero-Float Input</span>
+          </div>
+        </header>
+
+        <div class="body-area" style="justify-content:space-between;">
+          <div class="pipeline-flow-4 anim" style="--d:2">
+            <div class="pipe-node">
+              <span class="pipe-step-num">Stage 1 · PyTorch</span>
+              <div class="pipe-node-title">FP32 Checkpoint</div>
+              <p class="pipe-node-desc"><span class="mono">.pth</span> &amp; <span class="mono">.pt2</span> (<span class="mono">torch.export</span> diff <span class="mono">0.00</span>).</p>
+            </div>
+            <div class="pipe-arrow" aria-hidden="true">
+              <svg viewBox="0 0 28 24"><line x1="0" y1="12" x2="21" y2="12" class="flow-dash" stroke="#2d6a4f" stroke-width="2.4"/><polygon points="19,7 28,12 19,17" fill="#2d6a4f"/></svg>
+            </div>
+            <div class="pipe-node" style="border-top-color:var(--sage);">
+              <span class="pipe-step-num">Stage 2 · Custom TF2</span>
+              <div class="pipe-node-title">NHWC + <span class="mono">float64</span> BN</div>
+              <p class="pipe-node-desc">Bypasses broken TF1 script; exact pad → <span class="mono">max |Δ| 2.21e-6</span>.</p>
+            </div>
+            <div class="pipe-arrow" aria-hidden="true">
+              <svg viewBox="0 0 28 24"><line x1="0" y1="12" x2="21" y2="12" class="flow-dash" stroke="#2d6a4f" stroke-width="2.4"/><polygon points="19,7 28,12 19,17" fill="#2d6a4f"/></svg>
+            </div>
+            <div class="pipe-node" style="border-top-color:var(--slate-blue);">
+              <span class="pipe-step-num">Stage 3 · Full INT8</span>
+              <div class="pipe-node-title">Zero-Float PTQ</div>
+              <p class="pipe-node-desc">Calibrated on 800 imgs; input <span class="mono">q = pixel − 128</span>.</p>
+            </div>
+            <div class="pipe-arrow" aria-hidden="true">
+              <svg viewBox="0 0 28 24"><line x1="0" y1="12" x2="21" y2="12" class="flow-dash" stroke="#2d6a4f" stroke-width="2.4"/><polygon points="19,7 28,12 19,17" fill="#2d6a4f"/></svg>
+            </div>
+            <div class="pipe-node" style="border-top-color:var(--forest);background:var(--sage-soft);">
+              <span class="pipe-step-num">Stage 4 · Deliverables</span>
+              <div class="pipe-node-title">Deployable Bundle</div>
+              <p class="pipe-node-desc"><span class="mono">.tflite</span>, <span class="mono">model_data.h/.cc</span>, <span class="mono">main_example.cc</span>, <span class="mono">manifest.json</span>.</p>
+            </div>
+          </div>
+
+          <div class="grid-2 anim" style="--d:3">
+            <div class="card left-rule-forest" style="justify-content:space-between;">
+              <div class="card-head">
+                <span class="card-title">Why Custom TF2 + Pure-Integer Input</span>
+                <span class="tag tag-slate mono">s = 1/127.5 · zp = −1</span>
+              </div>
+              <ul class="clean-list">
+                <li><strong>Replaces broken TF1 converter:</strong> MCUNet's repo calls deprecated <span class="mono">tf.Session</span>; our layer-by-layer TF2 rebuilder folds BatchNorm in <span class="mono">float64</span> for exact float parity (<span class="mono">100%</span> TFLite FP32 match, <span class="mono">max |Δlogit| = 2.21e-6</span>).</li>
+                <li><strong>Zero floating-point math on MCU:</strong> Because inputs normalize to <span class="mono">[-1, 1]</span>, INT8 quantization simplifies to a single byte subtraction: <span class="mono t-forest">q = pixel − 128</span>.</li>
+              </ul>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <div class="card-tint" style="padding:0.7rem;align-items:center;text-align:center;">
+                  <span style="font-size:0.72rem;text-transform:uppercase;font-weight:700;color:var(--mute);">500-Img Test Eval</span>
+                  <div class="mono" style="font-size:1.25rem;font-weight:800;color:var(--forest);">87.6% <span style="font-size:0.8rem;color:var(--mute);font-weight:600;">vs 88.2%</span></div>
+                  <span style="font-size:0.76rem;color:var(--ink-2);"><span class="mono">94.6%</span> exact agreement</span>
+                </div>
+                <div class="card-tint" style="padding:0.7rem;align-items:center;text-align:center;background:var(--sage-soft);border-color:#c2dacb;">
+                  <span style="font-size:0.72rem;text-transform:uppercase;font-weight:700;color:var(--forest);">High-Confidence Parity</span>
+                  <div class="mono" style="font-size:1.25rem;font-weight:800;color:var(--forest);">100.0%</div>
+                  <span style="font-size:0.76rem;color:var(--ink-2);"><span class="mono">226 / 226</span> when <span class="mono">conf &gt; 0.7</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="justify-content:space-between;">
+              <div class="card-head">
+                <span class="card-title">INT8 vs. PyTorch Agreement by Confidence</span>
+                <span class="tag tag-forest mono">384-Img Verification</span>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:0.95rem;margin:auto 0;">
+                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
+                  <span class="mono" style="font-size:0.82rem;">(0.0, 0.5] <span style="color:var(--mute);font-size:0.72rem;">(46)</span></span>
+                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:69.6%;background:var(--amber);"></div></div>
+                  <span class="mono" style="text-align:right;font-weight:700;">69.6%</span>
+                </div>
+                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
+                  <span class="mono" style="font-size:0.82rem;">(0.5, 0.7] <span style="color:var(--mute);font-size:0.72rem;">(112)</span></span>
+                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:88.4%;background:var(--sage);transition-delay:110ms;"></div></div>
+                  <span class="mono" style="text-align:right;font-weight:700;">88.4%</span>
+                </div>
+                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
+                  <span class="mono" style="font-size:0.82rem;font-weight:700;color:var(--forest);">(0.7, 0.9] <span style="color:var(--mute);font-size:0.72rem;">(86)</span></span>
+                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:100%;background:var(--forest-mid);transition-delay:220ms;"></div></div>
+                  <span class="mono t-forest" style="text-align:right;">100.0%</span>
+                </div>
+                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
+                  <span class="mono" style="font-size:0.82rem;font-weight:700;color:var(--forest);">(0.9, 1.0] <span style="color:var(--mute);font-size:0.72rem;">(140)</span></span>
+                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:100%;background:var(--forest);transition-delay:320ms;"></div></div>
+                  <span class="mono t-forest" style="text-align:right;">100.0%</span>
+                </div>
+              </div>
+
+              <p style="font-size:0.84rem;color:var(--mute);">Virtually all INT8 disagreements occur on genuinely ambiguous borderline frames (<span class="mono">conf ≤ 0.7</span>), with zero flips on confident triggers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SLIDE 8 (moved before Results): MCU HARDWARE MEMORY & OPERATOR AUDIT
+         ===================================================================== -->
+    <section class="slide" data-num="8" data-section="08 MCU Audit"
+      data-title="MCU Memory Audit: Flash Passes, Explicit PAD Spikes SRAM"
+      data-notes="Here is the decisive hardware engineering verdict from auditing our exported INT8 TFLite graph. The model compiles to 71 operators across just 6 unique types, requiring only 786 KB of Flash (783 KB weights), comfortably inside our 1 MB ceiling. However, peak activation SRAM spikes to 389 KB on one of the 4 explicit PAD operators introduced by NHWC conversion, inflating TFLite Micro's tensor arena to roughly 600 KB, nearly double our 320 KB microcontroller budget. Removing or fusing those 4 explicit PAD ops, or compiling through TinyEngine (293 KB published SRAM), cleanly resolves this bottleneck.">
+      <div class="stage">
+        <header class="slide-header anim" style="--d:1">
+          <div class="eyebrow">08 · Microcontroller Resource Verdict</div>
+          <div class="slide-header-row">
+            <h1 class="slide-title">Flash Passes (<span class="mono t-forest">786 KB</span>), But Explicit <span class="mono t-alert">PAD</span> Breaks <span class="mono t-alert">320 KB</span> SRAM</h1>
+            <span class="tag tag-alert mono">Critical Bottleneck Identified</span>
+          </div>
+        </header>
+
+        <div class="body-area">
+          <div class="grid-2-asym">
+            <div class="card rule-terracotta anim" style="--d:2;justify-content:space-between;">
+              <div class="card-head">
+                <span class="card-title">Flash &amp; Peak SRAM vs. Microcontroller Ceilings</span>
+                <span class="tag tag-alert mono">SRAM Over Budget ✗</span>
+              </div>
+
+              <div class="gauge-block">
+                <div class="gauge-head">
+                  <span><strong>Flash Storage</strong> (INT8 <span class="mono">.tflite</span> · <span class="mono">783 KB</span> weights)</span>
+                  <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-forest">786 KB / 1,024 KB</strong> <span class="tag tag-forest" style="padding:0.1rem 0.48rem;font-size:0.68rem;">PASS ✓</span></span>
+                </div>
+                <div class="gauge-track" style="height:24px;">
+                  <div class="gauge-fill" style="--w:76.8%;background:var(--forest);font-size:0.76rem;">76.8% · PASS</div>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:1.15rem;padding-top:0.5rem;">
+                <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--terracotta);">SRAM Comparison vs. 320 KB Ceiling (Axis: 0 → 640 KB)</div>
+
+                <div class="gauge-block">
+                  <div class="gauge-head">
+                    <span><strong>TinyEngine Target</strong> (<span class="mono">mcunet-in3</span>)</span>
+                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-forest">293 KB</strong> <span class="tag tag-forest" style="padding:0.1rem 0.48rem;font-size:0.68rem;">FITS ✓</span></span>
+                  </div>
+                  <div class="gauge-track" style="height:24px;">
+                    <div class="gauge-limit-line" style="left:50%;"><span class="gauge-limit-label">320 KB Limit</span></div>
+                    <div class="gauge-fill" style="--w:45.8%;background:var(--forest-mid);font-size:0.76rem;">293 KB</div>
+                  </div>
+                </div>
+
+                <div class="gauge-block">
+                  <div class="gauge-head">
+                    <span><strong>Peak Activation</strong> (at explicit <span class="mono">PAD</span> op)</span>
+                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-alert">389 KB (+69 KB)</strong> <span class="tag tag-alert" style="padding:0.1rem 0.48rem;font-size:0.68rem;">OVER ✗</span></span>
+                  </div>
+                  <div class="gauge-track" style="height:24px;">
+                    <div class="gauge-limit-line" style="left:50%;"></div>
+                    <div class="gauge-fill" style="--w:60.8%;background:var(--amber);transition-delay:140ms;font-size:0.76rem;">389 KB</div>
+                  </div>
+                </div>
+
+                <div class="gauge-block">
+                  <div class="gauge-head">
+                    <span><strong>TFLite Micro Tensor Arena</strong></span>
+                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-alert">~600 KB (1.88×)</strong> <span class="tag tag-alert" style="padding:0.1rem 0.48rem;font-size:0.68rem;">OVER ✗</span></span>
+                  </div>
+                  <div class="gauge-track" style="height:24px;">
+                    <div class="gauge-limit-line" style="left:50%;"></div>
+                    <div class="gauge-fill" style="--w:93.8%;background:var(--terracotta);transition-delay:280ms;font-size:0.76rem;">~600 KB Arena</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-stack" style="justify-content:space-between;">
+              <div class="card anim" style="--d:3;flex:1 1 auto;justify-content:space-between;">
+                <div class="card-head">
+                  <span class="card-title">Exported Graph Operator Audit</span>
+                  <span class="tag tag-slate mono">71 Ops · 6 Types</span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:0.62rem;">
+                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
+                    <span class="mono" style="font-size:0.78rem;font-weight:700;">CONV_2D</span>
+                    <div class="bar-track"><div class="bar-fill" style="--w:100%;background:var(--forest);"></div></div>
+                    <span class="mono" style="text-align:right;font-weight:700;">36</span>
+                  </div>
+                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
+                    <span class="mono" style="font-size:0.78rem;font-weight:700;">DEPTHWISE_CONV</span>
+                    <div class="bar-track"><div class="bar-fill" style="--w:50%;background:var(--forest-mid);transition-delay:70ms;"></div></div>
+                    <span class="mono" style="text-align:right;font-weight:700;">18</span>
+                  </div>
+                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
+                    <span class="mono" style="font-size:0.78rem;font-weight:700;">ADD (Skips)</span>
+                    <div class="bar-track"><div class="bar-fill" style="--w:30.5%;background:var(--sage);transition-delay:140ms;"></div></div>
+                    <span class="mono" style="text-align:right;font-weight:700;">11</span>
+                  </div>
+                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
+                    <span class="mono t-alert" style="font-size:0.78rem;">PAD (Culprit!)</span>
+                    <div class="bar-track"><div class="bar-fill" style="--w:14%;background:var(--terracotta);transition-delay:210ms;"></div></div>
+                    <span class="mono t-alert" style="text-align:right;">4</span>
+                  </div>
+                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
+                    <span class="mono" style="font-size:0.78rem;">AVG_POOL + FC</span>
+                    <div class="bar-track"><div class="bar-fill" style="--w:7%;background:var(--slate-blue);transition-delay:280ms;"></div></div>
+                    <span class="mono" style="text-align:right;font-weight:700;">2</span>
+                  </div>
+                </div>
+
+                <p style="font-size:0.79rem;color:var(--mute);">Minimal 6-op TFLite Micro resolver keeps firmware binary small.</p>
+              </div>
+
+              <div class="card left-rule-terracotta anim" style="--d:4;background:var(--terracotta-soft);border-color:#ecc0b6;">
+                <div class="card-title" style="color:#7c2515;">Root Cause &amp; Engineering Solution</div>
+                <p class="card-text" style="color:#6e2214;font-size:0.9rem;">Explicit <span class="mono">PAD</span> allocates a full padded copy alongside its input tensor (<span class="mono">389 KB</span> peak). Switching to <strong>TinyEngine (<span class="mono">293 KB</span>)</strong> or fusing padding directly into <span class="mono">CONV_2D</span> brings SRAM safely under <span class="mono">320 KB</span>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SLIDE 9: TEST RESULTS ON 66,027 HELD-OUT IMAGES
+         ===================================================================== -->
+    <section class="slide" data-num="9" data-section="09 Results"
+      data-title="Test Performance: 88.47% Accuracy &amp; 0.905 Macro-F1"
+      data-notes="Evaluated across all 66,027 held-out test images from unseen camera locations, the FP32 model achieves 88.47% overall accuracy and 0.905 macro-F1, matching its 90.0% / 0.8994 validation score closely. Square-root class weighting keeps rare vehicle (0.948) and person (0.936) classes exceptionally strong. Across sources, COCO reaches 94.5%, CCT 92.1%, and ImageNet 91.0%, while dense-foliage WCS camera traps (40,000 test images) represent the toughest environment at 85.8%.">
+      <div class="stage">
+        <header class="slide-header anim" style="--d:1">
+          <div class="eyebrow">09 · Held-Out Test Benchmarks</div>
           <div class="slide-header-row">
             <h1 class="slide-title"><span class="mono t-forest">88.47%</span> Test Accuracy &amp; <span class="mono t-forest">0.905</span> Macro-F1 on <span class="mono">66,027</span> Images</h1>
             <span class="tag tag-forest mono">FP32 · Unseen Camera Locations</span>
@@ -420,7 +632,7 @@
                 <svg id="trackb-f1-svg" viewBox="0 0 460 280" style="width:100%;height:100%;" role="img" aria-label="Per-class test F1 scores: vehicle 0.948, person 0.936, animal 0.905, empty 0.828"></svg>
                 <div id="trackb-f1-tooltip" class="arch-tooltip"></div>
               </div>
-              <p style="font-size:0.84rem;color:var(--mute);">Rare <span class="mono">vehicle</span> (<span class="mono">0.948</span>) and <span class="mono">person</span> (<span class="mono">0.936</span>) classes outperform common categories — proving √-class weighting works.</p>
+              <p style="font-size:0.86rem;color:var(--mute);">Rare <span class="mono">vehicle</span> (<span class="mono">0.948</span>) and <span class="mono">person</span> (<span class="mono">0.936</span>) classes outperform common categories, proving √-class weighting works.</p>
             </div>
 
             <div class="card" style="justify-content:space-between;">
@@ -432,7 +644,7 @@
                 <svg id="trackb-src-svg" viewBox="0 0 460 280" style="width:100%;height:100%;" role="img" aria-label="Test accuracy by source: COCO 94.5%, CCT 92.1%, ImageNet 91.0%, WCS 85.8%"></svg>
                 <div id="trackb-src-tooltip" class="arch-tooltip"></div>
               </div>
-              <p style="font-size:0.84rem;color:var(--mute);">Dense-foliage <strong>WCS</strong> camera traps (<span class="mono">40,000</span> test imgs) account for the bulk of remaining classification difficulty.</p>
+              <p style="font-size:0.86rem;color:var(--mute);">Dense-foliage <strong>WCS</strong> camera traps (<span class="mono">40,000</span> test imgs) account for the bulk of remaining classification difficulty.</p>
             </div>
           </div>
         </div>
@@ -440,14 +652,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 8 — ERROR ANALYSIS (4x4 Matrix + Animated Donut)
+         SLIDE 10: ERROR ANALYSIS (4x4 Matrix + Animated Donut)
          ===================================================================== -->
-    <section class="slide" data-num="8" data-section="08 Errors"
+    <section class="slide" data-num="10" data-section="10 Errors"
       data-title="Error Analysis: 91.8% Are Animal ↔ Empty Confusions"
-      data-notes="Inspecting all 7,615 mistakes across the 66,027 test images shows an overwhelmingly concentrated error structure: 91.8% of all errors — 6,994 out of 7,615 — are mutual confusions between animal and empty (3,934 empty frames predicted as animal, and 3,060 animals predicted as empty). By contrast, person achieves 96.9% recall and vehicle achieves 94.8% recall; all other ten off-diagonal confusion pairs combined represent just 8.2% of errors.">
+      data-notes="Inspecting all 7,615 mistakes across the 66,027 test images shows an overwhelmingly concentrated error structure: 91.8% of all errors (6,994 out of 7,615) are mutual confusions between animal and empty (3,934 empty frames predicted as animal, and 3,060 animals predicted as empty). By contrast, person achieves 96.9% recall and vehicle achieves 94.8% recall; all other ten off-diagonal confusion pairs combined represent just 8.2% of errors.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">08 · Diagnostic Error Audit</div>
+          <div class="eyebrow">10 · Diagnostic Error Audit</div>
           <div class="slide-header-row">
             <h1 class="slide-title"><span class="mono t-amber">91.8%</span> of All Errors Are Mutual <span class="mono">animal ↔ empty</span> Confusions</h1>
             <span class="tag tag-amber mono">7,615 Mistakes / 66,027 Test Imgs</span>
@@ -520,14 +732,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 9 — NEW! VISUAL PROOF: REAL CAMERA-TRAP SAMPLES & FAILURE MODES
+         SLIDE 11: VISUAL PROOF: REAL CAMERA-TRAP SAMPLES & FAILURE MODES
          ===================================================================== -->
-    <section class="slide" data-num="9" data-section="09 Gallery"
+    <section class="slide" data-num="11" data-section="11 Gallery"
       data-title="Visual Proof: Real Camera-Trap Frames &amp; Failure Modes"
-      data-notes="Here are six real camera-trap images directly from our dataset and test error audit. The top row shows typical field inputs handled reliably — including monochrome nocturnal IR wildlife in WCS, empty woodland leaf litter discarded on-device, and a motion-blurred truck in Caltech Camera Traps. The bottom row reveals why 91.8% of mistakes are animal-versus-empty: a dark bird hidden in deep canopy shadow on the left edge, a camouflaged bird blending into dappled leaf litter at the bottom border, and dark charred tree stumps casting animal-like silhouettes in an empty hillside frame.">
+      data-notes="Here are six real camera-trap images directly from our dataset and test error audit. The top row shows typical field inputs handled reliably, including monochrome nocturnal IR wildlife in WCS, empty woodland leaf litter discarded on-device, and a motion-blurred truck in Caltech Camera Traps. The bottom row reveals why 91.8% of mistakes are animal-versus-empty: a dark bird hidden in deep canopy shadow on the left edge, a camouflaged bird blending into dappled leaf litter at the bottom border, and dark charred tree stumps casting animal-like silhouettes in an empty hillside frame.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">09 · Qualitative Field Inspection</div>
+          <div class="eyebrow">11 · Qualitative Field Inspection</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Real Camera-Trap Frames: Successes vs. <span class="mono">animal ↔ empty</span> Failures</h1>
             <span class="tag mono">WCS &amp; CCT Test Samples</span>
@@ -535,7 +747,6 @@
         </header>
 
         <div class="body-area" style="gap:1.5vh;">
-          <!-- TOP ROW: Typical Field Inputs -->
           <div class="gallery-section anim" style="--d:2">
             <div class="gallery-label" style="color:var(--forest);">
               <span>Typical Camera-Trap Inputs (Handled Reliably)</span>
@@ -549,7 +760,7 @@
                 </div>
                 <div class="sample-cap">
                   <strong>Nocturnal Infrared Wildlife</strong>
-                  <span>Monochrome night capture — supported by <span class="mono">RandomGrayscale</span> aug.</span>
+                  <span>Monochrome night capture, supported by <span class="mono">RandomGrayscale</span> aug.</span>
                 </div>
               </div>
 
@@ -577,7 +788,6 @@
             </div>
           </div>
 
-          <!-- BOTTOM ROW: Real Test Failure Cases -->
           <div class="gallery-section anim" style="--d:3">
             <div class="gallery-label" style="color:var(--terracotta);">
               <span>Representative Test Failure Modes (The 91.8% animal ↔ empty Boundary)</span>
@@ -623,246 +833,11 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 10 — NEW! CUSTOM TF2 REBUILDER & INT8 QUANTIZATION PARITY
-         ===================================================================== -->
-    <section class="slide" data-num="10" data-section="10 INT8 Export"
-      data-title="Custom TF2 Rebuilder &amp; INT8 Quantization Parity"
-      data-notes="MCUNet's official TFLite converter relies on TensorFlow 1 tf.Session and fails on modern TF2. We built a custom PyTorch-to-TF2 NHWC rebuilder with float64 BatchNorm folding and exact explicit padding, matching PyTorch logits within 2.21e-6. Full INT8 post-training quantization yields input scale 0.00784314 and zero point -1, so microcontroller preprocessing reduces to pure integer q = pixel - 128 without a single floating-point operation. On 500 held-out test images, INT8 scores 87.6% versus 88.2% FP32 (94.6% agreement), and across our 384-image calibration audit INT8 achieves 100.0% exact agreement — 226 out of 226 — whenever PyTorch confidence exceeds 0.7.">
-      <div class="stage">
-        <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">10 · Edge Conversion &amp; Quantization Fidelity</div>
-          <div class="slide-header-row">
-            <h1 class="slide-title">Custom TF2 Rebuilder Achieves <span class="mono t-forest">100%</span> INT8 Parity Above <span class="mono">0.7</span> Conf</h1>
-            <span class="tag tag-forest mono">Full INT8 · Zero-Float Input</span>
-          </div>
-        </header>
-
-        <div class="body-area" style="justify-content:space-between;">
-          <!-- Animated 4-Stage Conversion Pipeline -->
-          <div class="pipeline-flow-4 anim" style="--d:2">
-            <div class="pipe-node">
-              <span class="pipe-step-num">Stage 1 · PyTorch</span>
-              <div class="pipe-node-title">FP32 Checkpoint</div>
-              <p class="pipe-node-desc"><span class="mono">.pth</span> &amp; <span class="mono">.pt2</span> (<span class="mono">torch.export</span> diff <span class="mono">0.00</span>).</p>
-            </div>
-            <div class="pipe-arrow" aria-hidden="true">
-              <svg viewBox="0 0 28 24"><line x1="0" y1="12" x2="21" y2="12" class="flow-dash" stroke="#2d6a4f" stroke-width="2.4"/><polygon points="19,7 28,12 19,17" fill="#2d6a4f"/></svg>
-            </div>
-            <div class="pipe-node" style="border-top-color:var(--sage);">
-              <span class="pipe-step-num">Stage 2 · Custom TF2</span>
-              <div class="pipe-node-title">NHWC + <span class="mono">float64</span> BN</div>
-              <p class="pipe-node-desc">Bypasses broken TF1 script; exact pad → <span class="mono">max |Δ| 2.21e-6</span>.</p>
-            </div>
-            <div class="pipe-arrow" aria-hidden="true">
-              <svg viewBox="0 0 28 24"><line x1="0" y1="12" x2="21" y2="12" class="flow-dash" stroke="#2d6a4f" stroke-width="2.4"/><polygon points="19,7 28,12 19,17" fill="#2d6a4f"/></svg>
-            </div>
-            <div class="pipe-node" style="border-top-color:var(--slate-blue);">
-              <span class="pipe-step-num">Stage 3 · Full INT8</span>
-              <div class="pipe-node-title">Zero-Float PTQ</div>
-              <p class="pipe-node-desc">Calibrated on 800 imgs; input <span class="mono">q = pixel − 128</span>.</p>
-            </div>
-            <div class="pipe-arrow" aria-hidden="true">
-              <svg viewBox="0 0 28 24"><line x1="0" y1="12" x2="21" y2="12" class="flow-dash" stroke="#2d6a4f" stroke-width="2.4"/><polygon points="19,7 28,12 19,17" fill="#2d6a4f"/></svg>
-            </div>
-            <div class="pipe-node" style="border-top-color:var(--forest);background:var(--sage-soft);">
-              <span class="pipe-step-num">Stage 4 · Deliverables</span>
-              <div class="pipe-node-title">Deployable Bundle</div>
-              <p class="pipe-node-desc"><span class="mono">.tflite</span>, <span class="mono">model_data.h/.cc</span>, <span class="mono">main_example.cc</span>, <span class="mono">manifest.json</span>.</p>
-            </div>
-          </div>
-
-          <!-- Bottom 2 Clean Cards -->
-          <div class="grid-2 anim" style="--d:3">
-            <!-- Left: Pure-Integer Math & Parity -->
-            <div class="card left-rule-forest" style="justify-content:space-between;">
-              <div class="card-head">
-                <span class="card-title">Why Custom TF2 + Pure-Integer Input</span>
-                <span class="tag tag-slate mono">s = 1/127.5 · zp = −1</span>
-              </div>
-              <ul class="clean-list">
-                <li><strong>Replaces broken TF1 converter:</strong> MCUNet's repo calls deprecated <span class="mono">tf.Session</span>; our layer-by-layer TF2 rebuilder folds BatchNorm in <span class="mono">float64</span> for exact float parity (<span class="mono">100%</span> TFLite FP32 match, <span class="mono">max |Δlogit| = 2.21e-6</span>).</li>
-                <li><strong>Zero floating-point math on MCU:</strong> Because inputs normalize to <span class="mono">[-1, 1]</span>, INT8 quantization simplifies to a single byte subtraction: <span class="mono t-forest">q = pixel − 128</span>.</li>
-              </ul>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
-                <div class="card-tint" style="padding:0.7rem;align-items:center;text-align:center;">
-                  <span style="font-size:0.72rem;text-transform:uppercase;font-weight:700;color:var(--mute);">500-Img Test Eval</span>
-                  <div class="mono" style="font-size:1.25rem;font-weight:800;color:var(--forest);">87.6% <span style="font-size:0.8rem;color:var(--mute);font-weight:600;">vs 88.2%</span></div>
-                  <span style="font-size:0.76rem;color:var(--ink-2);"><span class="mono">94.6%</span> exact agreement</span>
-                </div>
-                <div class="card-tint" style="padding:0.7rem;align-items:center;text-align:center;background:var(--sage-soft);border-color:#c2dacb;">
-                  <span style="font-size:0.72rem;text-transform:uppercase;font-weight:700;color:var(--forest);">High-Confidence Parity</span>
-                  <div class="mono" style="font-size:1.25rem;font-weight:800;color:var(--forest);">100.0%</div>
-                  <span style="font-size:0.76rem;color:var(--ink-2);"><span class="mono">226 / 226</span> when <span class="mono">conf &gt; 0.7</span></span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right: Animated Confidence Agreement Breakdown -->
-            <div class="card" style="justify-content:space-between;">
-              <div class="card-head">
-                <span class="card-title">INT8 vs. PyTorch Agreement by Confidence</span>
-                <span class="tag tag-forest mono">384-Img Verification</span>
-              </div>
-
-              <div style="display:flex;flex-direction:column;gap:0.95rem;margin:auto 0;">
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;">(0.0, 0.5] <span style="color:var(--mute);font-size:0.72rem;">(46)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:69.6%;background:var(--amber);"></div></div>
-                  <span class="mono" style="text-align:right;font-weight:700;">69.6%</span>
-                </div>
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;">(0.5, 0.7] <span style="color:var(--mute);font-size:0.72rem;">(112)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:88.4%;background:var(--sage);transition-delay:110ms;"></div></div>
-                  <span class="mono" style="text-align:right;font-weight:700;">88.4%</span>
-                </div>
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;font-weight:700;color:var(--forest);">(0.7, 0.9] <span style="color:var(--mute);font-size:0.72rem;">(86)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:100%;background:var(--forest-mid);transition-delay:220ms;"></div></div>
-                  <span class="mono t-forest" style="text-align:right;">100.0%</span>
-                </div>
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;font-weight:700;color:var(--forest);">(0.9, 1.0] <span style="color:var(--mute);font-size:0.72rem;">(140)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:100%;background:var(--forest);transition-delay:320ms;"></div></div>
-                  <span class="mono t-forest" style="text-align:right;">100.0%</span>
-                </div>
-              </div>
-
-              <p style="font-size:0.82rem;color:var(--mute);">Virtually all INT8 disagreements occur on genuinely ambiguous borderline frames (<span class="mono">conf ≤ 0.7</span>) — zero flips on confident triggers.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         SLIDE 11 — NEW! MCU HARDWARE MEMORY & OPERATOR AUDIT (Dedicated Spotlight)
-         ===================================================================== -->
-    <section class="slide" data-num="11" data-section="11 MCU Audit"
-      data-title="MCU Memory Audit: Flash Passes, Explicit PAD Spikes SRAM"
-      data-notes="Here is the decisive hardware engineering verdict from auditing our exported INT8 TFLite graph. The model compiles to 71 operators across just 6 unique types, requiring only 786 KB of Flash (783 KB weights) — comfortably inside our 1 MB ceiling. However, peak activation SRAM spikes to 389 KB on one of the 4 explicit PAD operators introduced by NHWC conversion, inflating TFLite Micro's tensor arena to roughly 600 KB — nearly double our 320 KB microcontroller budget. Removing or fusing those 4 explicit PAD ops, or compiling through TinyEngine (293 KB published SRAM), cleanly resolves this bottleneck.">
-      <div class="stage">
-        <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">11 · Microcontroller Resource Verdict</div>
-          <div class="slide-header-row">
-            <h1 class="slide-title">Flash Passes (<span class="mono t-forest">786 KB</span>), But Explicit <span class="mono t-alert">PAD</span> Breaks <span class="mono t-alert">320 KB</span> SRAM</h1>
-            <span class="tag tag-alert mono">Critical Bottleneck Identified</span>
-          </div>
-        </header>
-
-        <div class="body-area">
-          <div class="grid-2-asym">
-            <!-- LEFT: Full-Scale Flash & SRAM Hardware Gauges -->
-            <div class="card rule-terracotta anim" style="--d:2;justify-content:space-between;">
-              <div class="card-head">
-                <span class="card-title">Flash &amp; Peak SRAM vs. Microcontroller Ceilings</span>
-                <span class="tag tag-alert mono">SRAM Over Budget ✗</span>
-              </div>
-
-              <!-- Flash Gauge -->
-              <div class="gauge-block">
-                <div class="gauge-head">
-                  <span><strong>Flash Storage</strong> (INT8 <span class="mono">.tflite</span> · <span class="mono">783 KB</span> weights)</span>
-                  <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-forest">786 KB / 1,024 KB</strong> <span class="tag tag-forest" style="padding:0.1rem 0.48rem;font-size:0.68rem;">PASS ✓</span></span>
-                </div>
-                <div class="gauge-track" style="height:24px;">
-                  <div class="gauge-fill" style="--w:76.8%;background:var(--forest);font-size:0.76rem;">76.8% · PASS</div>
-                </div>
-              </div>
-
-              <!-- SRAM Gauges -->
-              <div style="display:flex;flex-direction:column;gap:1.15rem;padding-top:0.5rem;">
-                <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--terracotta);">SRAM Comparison vs. 320 KB Ceiling (Axis: 0 → 640 KB)</div>
-
-                <div class="gauge-block">
-                  <div class="gauge-head">
-                    <span><strong>TinyEngine Target</strong> (<span class="mono">mcunet-in3</span>)</span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-forest">293 KB</strong> <span class="tag tag-forest" style="padding:0.1rem 0.48rem;font-size:0.68rem;">FITS ✓</span></span>
-                  </div>
-                  <div class="gauge-track" style="height:24px;">
-                    <div class="gauge-limit-line" style="left:50%;"><span class="gauge-limit-label">320 KB Limit</span></div>
-                    <div class="gauge-fill" style="--w:45.8%;background:var(--forest-mid);font-size:0.76rem;">293 KB</div>
-                  </div>
-                </div>
-
-                <div class="gauge-block">
-                  <div class="gauge-head">
-                    <span><strong>Peak Activation</strong> (at explicit <span class="mono">PAD</span> op)</span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-alert">389 KB (+69 KB)</strong> <span class="tag tag-alert" style="padding:0.1rem 0.48rem;font-size:0.68rem;">OVER ✗</span></span>
-                  </div>
-                  <div class="gauge-track" style="height:24px;">
-                    <div class="gauge-limit-line" style="left:50%;"></div>
-                    <div class="gauge-fill" style="--w:60.8%;background:var(--amber);transition-delay:140ms;font-size:0.76rem;">389 KB</div>
-                  </div>
-                </div>
-
-                <div class="gauge-block">
-                  <div class="gauge-head">
-                    <span><strong>TFLite Micro Tensor Arena</strong></span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-alert">~600 KB (1.88×)</strong> <span class="tag tag-alert" style="padding:0.1rem 0.48rem;font-size:0.68rem;">OVER ✗</span></span>
-                  </div>
-                  <div class="gauge-track" style="height:24px;">
-                    <div class="gauge-limit-line" style="left:50%;"></div>
-                    <div class="gauge-fill" style="--w:93.8%;background:var(--terracotta);transition-delay:280ms;font-size:0.76rem;">~600 KB Arena</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- RIGHT: Operator Inventory & Root-Cause Verdict -->
-            <div class="col-stack" style="justify-content:space-between;">
-              <div class="card anim" style="--d:3;flex:1 1 auto;justify-content:space-between;">
-                <div class="card-head">
-                  <span class="card-title">Exported Graph Operator Audit</span>
-                  <span class="tag tag-slate mono">71 Ops · 6 Types</span>
-                </div>
-
-                <div style="display:flex;flex-direction:column;gap:0.62rem;">
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;font-weight:700;">CONV_2D</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:100%;background:var(--forest);"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">36</span>
-                  </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;font-weight:700;">DEPTHWISE_CONV</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:50%;background:var(--forest-mid);transition-delay:70ms;"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">18</span>
-                  </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;font-weight:700;">ADD (Skips)</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:30.5%;background:var(--sage);transition-delay:140ms;"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">11</span>
-                  </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono t-alert" style="font-size:0.78rem;">PAD (Culprit!)</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:14%;background:var(--terracotta);transition-delay:210ms;"></div></div>
-                    <span class="mono t-alert" style="text-align:right;">4</span>
-                  </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;">AVG_POOL + FC</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:7%;background:var(--slate-blue);transition-delay:280ms;"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">2</span>
-                  </div>
-                </div>
-
-                <p style="font-size:0.79rem;color:var(--mute);">Minimal 6-op TFLite Micro resolver keeps firmware binary small.</p>
-              </div>
-
-              <div class="card left-rule-terracotta anim" style="--d:4;background:var(--terracotta-soft);border-color:#ecc0b6;">
-                <div class="card-title" style="color:#7c2515;">Root Cause &amp; Engineering Solution</div>
-                <p class="card-text" style="color:#6e2214;font-size:0.86rem;">Explicit <span class="mono">PAD</span> allocates a full padded copy alongside its input tensor (<span class="mono">389 KB</span> peak). Switching to <strong>TinyEngine (<span class="mono">293 KB</span>)</strong> or fusing padding directly into <span class="mono">CONV_2D</span> brings SRAM safely under <span class="mono">320 KB</span>.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         SLIDE 12 — TECHNICAL RISKS, LIMITATIONS & NEXT STEPS (Photo #3)
+         SLIDE 12: TECHNICAL RISKS, LIMITATIONS & NEXT STEPS (Photo #3)
          ===================================================================== -->
     <section class="slide photo-slide slide-bg-closing" data-num="12" data-section="12 Next Steps"
       data-title="Technical Risks, Limitations &amp; Next Steps"
-      data-notes="Three concrete priorities take this model from lab benchmark to autonomous field deployment. First, eliminate explicit PAD ops or compile via TinyEngine with a NumPy < 2 patch against the int8=128 OverflowError so SRAM drops under 320 KB. Second, run the final C-array export cells (model_data.h/.cc and main_example.cc), measure true on-board inference latency against our 15-second budget, and migrate from tf.lite.Interpreter to ai_edge_litert. Third, improve night IR animal-versus-empty separation in dense foliage — and replace non-commercial ImageNet-1k (and CUB-200 from the pilot) before any commercial deployment.">
+      data-notes="Three concrete priorities take this model from lab benchmark to autonomous field deployment. First, eliminate explicit PAD ops or compile via TinyEngine with a NumPy < 2 patch against the int8=128 OverflowError so SRAM drops under 320 KB. Second, run the final C-array export cells (model_data.h/.cc and main_example.cc), measure true on-board inference latency against our 15-second budget, and migrate from tf.lite.Interpreter to ai_edge_litert. Third, improve night IR animal-versus-empty separation in dense foliage, and replace non-commercial ImageNet-1k (and CUB-200 from the pilot) before any commercial deployment.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
           <div class="eyebrow">12 · Risks &amp; Roadmap</div>
@@ -919,7 +894,7 @@
 
           <div class="card-frosted-dark anim" style="--d:5;flex:0 0 auto;flex-direction:row;align-items:center;justify-content:space-between;padding:0.85rem 1.35rem;border-color:rgba(167,212,187,0.38);">
             <span style="font-size:0.94rem;color:#ffffff;">
-              <strong>Takeaway:</strong> Pivoting from birds to 4 MegaDetector classes delivers <span class="mono" style="color:#a9d6bc;">88.47%</span> accuracy &amp; <span class="mono" style="color:#a9d6bc;">0.905</span> F1 in <span class="mono" style="color:#a9d6bc;">786 KB</span> — only the <span class="mono">PAD</span> SRAM fix stands before field trials.
+              <strong>Takeaway:</strong> Pivoting from birds to 4 MegaDetector classes delivers <span class="mono" style="color:#a9d6bc;">88.47%</span> accuracy &amp; <span class="mono" style="color:#a9d6bc;">0.905</span> F1 in <span class="mono" style="color:#a9d6bc;">786 KB</span>; only the <span class="mono">PAD</span> SRAM fix stands before field trials.
             </span>
             <span class="mono" style="font-size:0.82rem;color:#a9d6bc;white-space:nowrap;">Thank You · Q&amp;A</span>
           </div>
@@ -950,7 +925,7 @@
   <!-- SPEAKER NOTES DRAWER -->
   <aside id="notes-drawer" aria-live="polite">
     <div class="notes-hdr">
-      <span>Speaker Notes — <span id="notes-slide-title"></span></span>
+      <span>Speaker Notes: <span id="notes-slide-title"></span></span>
       <button class="hud-btn" id="btn-close-notes" style="padding:0.15rem 0.5rem;">Close (N)</button>
     </div>
     <p id="notes-text"></p>
@@ -962,7 +937,7 @@
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <div>
           <div class="eyebrow">Deck Map · 12 Slides</div>
-          <h2 style="font-family:var(--font-serif);font-size:1.35rem;color:var(--ink);">TinyML MegaDetector — Camera-Trap Wildlife Monitoring</h2>
+          <h2 style="font-family:var(--font-serif);font-size:1.35rem;color:var(--ink);">TinyML MegaDetector: Camera-Trap Wildlife Monitoring</h2>
         </div>
         <button class="hud-btn" id="btn-close-overview">Close (Esc)</button>
       </div>
