@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TinyML MegaDetector: Edge AI for Camera-Trap Wildlife Monitoring (13 Slides)</title>
-  <meta name="description" content="13-slide academic research presentation on Edge AI camera-trap wildlife monitoring with mcunet-in3, pivoting from bird detection to a 4-class TinyML MegaDetector." />
+  <title>TinyML MegaDetector: Edge AI for Camera-Trap Wildlife Monitoring (12 Slides)</title>
+  <meta name="description" content="12-slide academic research presentation on Edge AI camera-trap wildlife monitoring with mcunet-in3, pivoting from bird detection to a 4-class TinyML MegaDetector." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=7" />
+  <link rel="stylesheet" href="./styles.css?v=8" />
 </head>
 <body class="theme-photo">
 
-  <!-- TOP 13-SEGMENT PROGRESS NAVIGATION -->
+  <!-- TOP 12-SEGMENT PROGRESS NAVIGATION -->
   <nav id="secbar" aria-label="Slide navigation"></nav>
 
-  <!-- MAIN DECK CONTAINER: 13 AIRY SLIDES -->
+  <!-- MAIN DECK CONTAINER: 12 AIRY SLIDES -->
   <main id="deck-root">
 
     <!-- =====================================================================
@@ -533,150 +533,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 9: MCU HARDWARE MEMORY & OPERATOR AUDIT
+         SLIDE 9: TEST RESULTS ON 66,027 HELD-OUT IMAGES
          ===================================================================== -->
-    <section class="slide slide-mcu" data-num="9" data-section="09 MCU Audit"
-      data-title="MCU Memory Audit: Flash Passes, Explicit PAD Spikes SRAM"
-      data-notes="Here is the decisive hardware engineering verdict from auditing our exported INT8 TFLite graph. The model compiles to 71 operators across just 6 unique types, requiring only 786 KB of Flash (783 KB weights), comfortably inside our 1 MB ceiling. However, peak activation SRAM spikes to 389 KB on one of the 4 explicit PAD operators introduced by NHWC conversion, inflating TFLite Micro's tensor arena to roughly 600 KB, nearly double our 320 KB microcontroller budget. Removing or fusing those 4 explicit PAD ops, or compiling through TinyEngine (293 KB published SRAM), cleanly resolves this bottleneck.">
-      <div class="stage">
-        <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">09 · Microcontroller Resource Verdict</div>
-          <div class="slide-header-row">
-            <h1 class="slide-title">Flash Passes (<span class="mono t-forest">786 KB</span>), But Explicit <span class="mono t-alert">PAD</span> Breaks <span class="mono t-alert">320 KB</span> SRAM</h1>
-            <span class="tag tag-alert mono">Critical Bottleneck Identified</span>
-          </div>
-        </header>
-
-        <div class="body-area">
-          <div class="mcu-grid">
-            <div class="col-stack mcu-left-col">
-              <!-- Compact Boxless Flash PASS Section -->
-              <div class="mcu-panel mcu-flash-card anim" style="--d:2;">
-                <div class="mcu-gauge-head">
-                  <div class="mcu-gauge-label">
-                    <strong>Flash Storage</strong>
-                    <span class="mcu-gauge-sub">INT8 <span class="mono">.tflite</span> (<span class="mono">783 KB</span> weights)</span>
-                  </div>
-                  <div class="mcu-gauge-val">
-                    <strong class="mono t-forest">786 KB / 1,024 KB</strong>
-                    <span class="tag tag-forest mcu-badge-sm">PASS ✓</span>
-                  </div>
-                </div>
-                <div class="gauge-track mcu-track">
-                  <div class="gauge-fill mcu-fill" style="--w:76.8%;background:var(--forest);">76.8% · PASS</div>
-                </div>
-              </div>
-
-              <!-- Main Boxless SRAM Budget Section -->
-              <div class="mcu-panel mcu-sram-card anim" style="--d:3;">
-                <div class="card-head">
-                  <span class="card-title">Peak SRAM vs. <span class="mono t-alert">320 KB</span> Ceiling</span>
-                  <span class="tag tag-alert mono">OVER BUDGET ✗</span>
-                </div>
-
-                <div class="sram-ruler" aria-hidden="true">
-                  <span class="mono sram-tick">0 KB</span>
-                  <span class="mono sram-limit-pill">▼ 320 KB Limit</span>
-                  <span class="mono sram-tick">640 KB</span>
-                </div>
-
-                <div class="sram-gauges">
-                  <div class="gauge-block">
-                    <div class="mcu-gauge-head">
-                      <span class="mcu-gauge-label"><strong>TinyEngine Target</strong> <span class="mcu-gauge-sub">(<span class="mono">mcunet-in3</span>)</span></span>
-                      <span class="mcu-gauge-val"><strong class="mono t-forest">293 KB</strong> <span class="tag tag-forest mcu-badge-sm">FITS ✓</span></span>
-                    </div>
-                    <div class="gauge-track mcu-track">
-                      <div class="gauge-limit-line mcu-limit-line" style="left:50%;"></div>
-                      <div class="gauge-fill mcu-fill" style="--w:45.8%;background:var(--forest-mid);">293 KB</div>
-                    </div>
-                  </div>
-
-                  <div class="gauge-block">
-                    <div class="mcu-gauge-head">
-                      <span class="mcu-gauge-label"><strong>Peak Activation</strong> <span class="mcu-gauge-sub">(explicit <span class="mono">PAD</span>)</span></span>
-                      <span class="mcu-gauge-val"><strong class="mono t-alert">389 KB (+69 KB)</strong> <span class="tag tag-alert mcu-badge-sm">OVER ✗</span></span>
-                    </div>
-                    <div class="gauge-track mcu-track">
-                      <div class="gauge-limit-line mcu-limit-line" style="left:50%;"></div>
-                      <div class="gauge-fill mcu-fill" style="--w:60.8%;background:var(--amber);transition-delay:140ms;">389 KB</div>
-                    </div>
-                  </div>
-
-                  <div class="gauge-block">
-                    <div class="mcu-gauge-head">
-                      <span class="mcu-gauge-label"><strong>TFLite Micro Arena</strong></span>
-                      <span class="mcu-gauge-val"><strong class="mono t-alert">~600 KB (1.88×)</strong> <span class="tag tag-alert mcu-badge-sm">OVER ✗</span></span>
-                    </div>
-                    <div class="gauge-track mcu-track">
-                      <div class="gauge-limit-line mcu-limit-line" style="left:50%;"></div>
-                      <div class="gauge-fill mcu-fill" style="--w:93.8%;background:var(--terracotta);transition-delay:280ms;">~600 KB Arena</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-stack mcu-right-col">
-              <div class="mcu-panel mcu-ops-card anim" style="--d:3;">
-                <div class="card-head">
-                  <span class="card-title">Exported Graph Operators</span>
-                  <span class="tag tag-slate mono">71 Ops · 6 Types</span>
-                </div>
-
-                <div class="mcu-ops-list">
-                  <div class="bar-row mcu-op-row">
-                    <span class="mono mcu-op-name">CONV_2D</span>
-                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:100%;background:var(--forest);"></div></div>
-                    <span class="mono mcu-op-count">36</span>
-                  </div>
-                  <div class="bar-row mcu-op-row">
-                    <span class="mono mcu-op-name">DEPTHWISE_CONV</span>
-                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:50%;background:var(--forest-mid);transition-delay:70ms;"></div></div>
-                    <span class="mono mcu-op-count">18</span>
-                  </div>
-                  <div class="bar-row mcu-op-row">
-                    <span class="mono mcu-op-name">ADD (Skips)</span>
-                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:30.5%;background:var(--sage);transition-delay:140ms;"></div></div>
-                    <span class="mono mcu-op-count">11</span>
-                  </div>
-                  <div class="bar-row mcu-op-row mcu-op-culprit">
-                    <span class="mono mcu-op-name t-alert">PAD (Culprit!)</span>
-                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:15%;background:var(--terracotta);transition-delay:210ms;"></div></div>
-                    <span class="mono mcu-op-count t-alert">4</span>
-                  </div>
-                  <div class="bar-row mcu-op-row">
-                    <span class="mono mcu-op-name">AVG_POOL + FC</span>
-                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:8%;background:var(--slate-blue);transition-delay:280ms;"></div></div>
-                    <span class="mono mcu-op-count">2</span>
-                  </div>
-                </div>
-
-                <p class="mcu-ops-foot">Minimal 6-op TFLite Micro resolver keeps firmware binary small.</p>
-              </div>
-
-              <div class="card left-rule-terracotta mcu-fix-card anim" style="--d:4;">
-                <div class="card-title" style="color:#7c2515;">Root Cause &amp; Fix</div>
-                <div class="mcu-fix-lines">
-                  <p><strong>Why:</strong> Explicit <span class="mono">PAD</span> copies its input in RAM (<span class="mono">389&nbsp;KB</span>).</p>
-                  <p><strong>Fix:</strong> Compile via <strong>TinyEngine (<span class="mono">293&nbsp;KB</span>)</strong> or fuse <span class="mono">PAD</span> into <span class="mono">CONV_2D</span> to fit under <span class="mono">320&nbsp;KB</span>.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         SLIDE 10: TEST RESULTS ON 66,027 HELD-OUT IMAGES
-         ===================================================================== -->
-    <section class="slide" data-num="10" data-section="10 Results"
+    <section class="slide" data-num="9" data-section="09 Results"
       data-title="Test Performance: 88.47% Accuracy &amp; 0.905 Macro-F1"
       data-notes="Evaluated across all 66,027 held-out test images from unseen camera locations, the FP32 model achieves 88.47% overall accuracy and 0.905 macro-F1, matching its 90.0% / 0.8994 validation score closely. Square-root class weighting keeps rare vehicle (0.948) and person (0.936) classes exceptionally strong. Across sources, COCO reaches 94.5%, CCT 92.1%, and ImageNet 91.0%, while dense-foliage WCS camera traps (40,000 test images) represent the toughest environment at 85.8%.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">10 · Held-Out Test Benchmarks</div>
+          <div class="eyebrow">09 · Held-Out Test Benchmarks</div>
           <div class="slide-header-row">
             <h1 class="slide-title"><span class="mono t-forest">88.47%</span> Test Accuracy &amp; <span class="mono t-forest">0.905</span> Macro-F1 on <span class="mono">66,027</span> Images</h1>
             <span class="tag tag-forest mono">FP32 · Unseen Camera Locations</span>
@@ -714,14 +578,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 11: ERROR ANALYSIS (4x4 Matrix + Animated Donut)
+         SLIDE 10: ERROR ANALYSIS (4x4 Matrix + Animated Donut)
          ===================================================================== -->
-    <section class="slide" data-num="11" data-section="11 Errors"
+    <section class="slide" data-num="10" data-section="10 Errors"
       data-title="Error Analysis: 91.8% Are Animal ↔ Empty Confusions"
       data-notes="Inspecting all 7,615 mistakes across the 66,027 test images shows an overwhelmingly concentrated error structure: 91.8% of all errors (6,994 out of 7,615) are mutual confusions between animal and empty (3,934 empty frames predicted as animal, and 3,060 animals predicted as empty). By contrast, person achieves 96.9% recall and vehicle achieves 94.8% recall; all other ten off-diagonal confusion pairs combined represent just 8.2% of errors.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">11 · Diagnostic Error Audit</div>
+          <div class="eyebrow">10 · Diagnostic Error Audit</div>
           <div class="slide-header-row">
             <h1 class="slide-title"><span class="mono t-amber">91.8%</span> of All Errors Are Mutual <span class="mono">animal ↔ empty</span> Confusions</h1>
             <span class="tag tag-amber mono">7,615 Mistakes / 66,027 Test Imgs</span>
@@ -794,14 +658,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 12: VISUAL PROOF: REAL CAMERA-TRAP SAMPLES & FAILURE MODES
+         SLIDE 11: VISUAL PROOF: REAL CAMERA-TRAP SAMPLES & FAILURE MODES
          ===================================================================== -->
-    <section class="slide" data-num="12" data-section="12 Gallery"
+    <section class="slide" data-num="11" data-section="11 Gallery"
       data-title="Visual Proof: Real Camera-Trap Frames &amp; Failure Modes"
       data-notes="Here are six real camera-trap images directly from our dataset and test error audit. The top row shows typical field inputs handled reliably, including monochrome nocturnal IR wildlife in WCS, empty woodland leaf litter discarded on-device, and a motion-blurred truck in Caltech Camera Traps. The bottom row reveals why 91.8% of mistakes are animal-versus-empty: a dark bird hidden in deep canopy shadow on the left edge, a camouflaged bird blending into dappled leaf litter at the bottom border, and dark charred tree stumps casting animal-like silhouettes in an empty hillside frame.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">12 · Qualitative Field Inspection</div>
+          <div class="eyebrow">11 · Qualitative Field Inspection</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Real Camera-Trap Frames: Successes vs. <span class="mono">animal ↔ empty</span> Failures</h1>
             <span class="tag mono">WCS &amp; CCT Test Samples</span>
@@ -895,14 +759,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 13: TECHNICAL RISKS, LIMITATIONS & NEXT STEPS (Photo #4)
+         SLIDE 12: TECHNICAL RISKS, LIMITATIONS & NEXT STEPS (Photo #4)
          ===================================================================== -->
-    <section class="slide photo-slide slide-bg-closing" data-num="13" data-section="13 Next Steps"
+    <section class="slide photo-slide slide-bg-closing" data-num="12" data-section="12 Next Steps"
       data-title="Technical Risks, Limitations &amp; Next Steps"
       data-notes="Three concrete priorities take this model further in the field. First, eliminate explicit PAD ops or compile via TinyEngine with a NumPy < 2 patch against the int8=128 OverflowError so SRAM drops under 320 KB. Second, with measured inference latency already at just 35 ms per frame, our next step is to further improve the training dataset and run patch detection on the original high-resolution image to improve video and frame quality. Third, improve night IR animal-versus-empty separation in dense foliage, and replace non-commercial ImageNet-1k (and CUB-200 from the pilot) before any commercial deployment.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">13 · Risks &amp; Roadmap</div>
+          <div class="eyebrow">12 · Risks &amp; Roadmap</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Three Steps to Autonomous Field Deployment</h1>
             <span class="tag tag-dark mono">SRAM · Data &amp; Patches · Licensing</span>
@@ -969,7 +833,7 @@
   <!-- BOTTOM SLIDE COUNTER -->
   <footer id="hud-bar" aria-label="Slide counter">
     <div id="hud-left">
-      <span id="hud-counter">01 / 13</span>
+      <span id="hud-counter">01 / 12</span>
     </div>
   </footer>
 
@@ -982,12 +846,12 @@
     <p id="notes-text"></p>
   </aside>
 
-  <!-- SLIDE OVERVIEW MODAL (13 SLIDES) -->
-  <div id="overview-modal" role="dialog" aria-modal="true" aria-label="All 13 slides overview">
+  <!-- SLIDE OVERVIEW MODAL (12 SLIDES) -->
+  <div id="overview-modal" role="dialog" aria-modal="true" aria-label="All 12 slides overview">
     <div class="overview-shell">
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <div>
-          <div class="eyebrow">Deck Map · 13 Slides</div>
+          <div class="eyebrow">Deck Map · 12 Slides</div>
           <h2 style="font-family:var(--font-serif);font-size:1.35rem;color:var(--ink);">TinyML MegaDetector: Camera-Trap Wildlife Monitoring</h2>
         </div>
         <button class="hud-btn" id="btn-close-overview">Close (Esc)</button>
@@ -996,6 +860,6 @@
     </div>
   </div>
 
-  <script src="./app.js?v=7"></script>
+  <script src="./app.js?v=8"></script>
 </body>
 </html>

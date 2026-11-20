@@ -90,11 +90,11 @@
     if (idx === 2) renderPivotChart(instant);
     if (idx === 5) renderMCUNetArch(instant);
     if (idx === 6) renderTrainingCurve(instant);
-    if (idx === 9) {
+    if (idx === 8) {
       renderTrackBF1(instant);
       renderTrackBSources(instant);
     }
-    if (idx === 10) renderTrackBErrors(instant);
+    if (idx === 9) renderTrackBErrors(instant);
   }
 
   function goTo(idx, opts = {}) {
