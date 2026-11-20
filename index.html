@@ -65,24 +65,23 @@
         </header>
 
         <div class="context-layout">
-          <p class="context-lead anim" style="--d:2">
-            Motion-triggered camera traps monitor wildlife non-invasively for months in remote ecosystems, yet hardware and energy limits turn raw data collection into a bottleneck.
-          </p>
-
           <div class="context-items">
-            <div class="context-item ctx-alert anim" style="--d:3">
-              <div class="context-item-title">The Empty-Frame Flood</div>
-              <p class="context-item-text">Wind, moving foliage, and sunlight shifts fire massive volumes of blank triggers (often <strong style="color:#ffffff;">50% to 70%+</strong> of captures), wasting manual review hours and storage.</p>
+            <div class="context-item ctx-alert anim" style="--d:2">
+              <div class="context-item-title">Empty-Frame Flood</div>
+              <p class="context-item-text"><strong style="color:#ffffff;">50%–70%+</strong> of triggers are wind or moving foliage.</p>
             </div>
 
-            <div class="context-item ctx-amber anim" style="--d:4">
-              <div class="context-item-title">Off-Grid Power &amp; Storage Limits</div>
-              <p class="context-item-text">Remote forest traps run on AA batteries with no cloud link. Writing or transmitting empty frames rapidly exhausts SD cards, battery life, and cellular or satellite quotas.</p>
+            <div class="context-item ctx-amber anim" style="--d:3">
+              <div class="context-item-title">Off-Grid Limits</div>
+              <p class="context-item-text">AA batteries, no cloud link, limited SD storage.</p>
             </div>
 
-            <div class="context-item anim" style="--d:5">
-              <div class="context-item-title">Our TinyML Edge Objective</div>
-              <p class="context-item-text">Classify every frame directly on the camera microcontroller (<span class="mono" style="color:#a9d6bc;font-weight:700;">SRAM ≤ 320 KB</span>, <span class="mono" style="color:#a9d6bc;font-weight:700;">Flash ≤ 1 MB</span>, <span class="mono" style="color:#a9d6bc;font-weight:700;">35 ms</span> latency) to discard blanks before saving or sending.</p>
+            <div class="context-item anim" style="--d:4">
+              <div class="context-item-title">On-Device TinyML Goal</div>
+              <p class="context-item-text">
+                Discard blanks directly on the microcontroller<br />
+                <span class="mono context-specs">SRAM ≤ 320 KB · Flash ≤ 1 MB · 35 ms</span>
+              </p>
             </div>
           </div>
         </div>
@@ -536,7 +535,7 @@
     <!-- =====================================================================
          SLIDE 9: MCU HARDWARE MEMORY & OPERATOR AUDIT
          ===================================================================== -->
-    <section class="slide" data-num="9" data-section="09 MCU Audit"
+    <section class="slide slide-mcu" data-num="9" data-section="09 MCU Audit"
       data-title="MCU Memory Audit: Flash Passes, Explicit PAD Spikes SRAM"
       data-notes="Here is the decisive hardware engineering verdict from auditing our exported INT8 TFLite graph. The model compiles to 71 operators across just 6 unique types, requiring only 786 KB of Flash (783 KB weights), comfortably inside our 1 MB ceiling. However, peak activation SRAM spikes to 389 KB on one of the 4 explicit PAD operators introduced by NHWC conversion, inflating TFLite Micro's tensor arena to roughly 600 KB, nearly double our 320 KB microcontroller budget. Removing or fusing those 4 explicit PAD ops, or compiling through TinyEngine (293 KB published SRAM), cleanly resolves this bottleneck.">
       <div class="stage">
@@ -549,102 +548,119 @@
         </header>
 
         <div class="body-area">
-          <div class="grid-2-asym">
-            <div class="card rule-terracotta anim" style="--d:2;justify-content:space-between;">
-              <div class="card-head">
-                <span class="card-title">Flash &amp; Peak SRAM vs. Microcontroller Ceilings</span>
-                <span class="tag tag-alert mono">SRAM Over Budget ✗</span>
+          <div class="mcu-grid">
+            <div class="col-stack mcu-left-col">
+              <!-- Compact Flash PASS Card -->
+              <div class="card rule-forest mcu-flash-card anim" style="--d:2;">
+                <div class="mcu-gauge-head">
+                  <div class="mcu-gauge-label">
+                    <strong>Flash Storage</strong>
+                    <span class="mcu-gauge-sub">INT8 <span class="mono">.tflite</span> (<span class="mono">783 KB</span> weights)</span>
+                  </div>
+                  <div class="mcu-gauge-val">
+                    <strong class="mono t-forest">786 KB / 1,024 KB</strong>
+                    <span class="tag tag-forest mcu-badge-sm">PASS ✓</span>
+                  </div>
+                </div>
+                <div class="gauge-track mcu-track">
+                  <div class="gauge-fill mcu-fill" style="--w:76.8%;background:var(--forest);">76.8% · PASS</div>
+                </div>
               </div>
 
-              <div class="gauge-block">
-                <div class="gauge-head">
-                  <span><strong>Flash Storage</strong> (INT8 <span class="mono">.tflite</span> · <span class="mono">783 KB</span> weights)</span>
-                  <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-forest">786 KB / 1,024 KB</strong> <span class="tag tag-forest" style="padding:0.1rem 0.48rem;font-size:0.68rem;">PASS ✓</span></span>
-                </div>
-                <div class="gauge-track" style="height:24px;">
-                  <div class="gauge-fill" style="--w:76.8%;background:var(--forest);font-size:0.76rem;">76.8% · PASS</div>
-                </div>
-              </div>
-
-              <div style="display:flex;flex-direction:column;gap:1.15rem;padding-top:0.5rem;">
-                <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--terracotta);">SRAM Comparison vs. 320 KB Ceiling (Axis: 0 → 640 KB)</div>
-
-                <div class="gauge-block">
-                  <div class="gauge-head">
-                    <span><strong>TinyEngine Target</strong> (<span class="mono">mcunet-in3</span>)</span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-forest">293 KB</strong> <span class="tag tag-forest" style="padding:0.1rem 0.48rem;font-size:0.68rem;">FITS ✓</span></span>
-                  </div>
-                  <div class="gauge-track" style="height:24px;">
-                    <div class="gauge-limit-line" style="left:50%;"><span class="gauge-limit-label">320 KB Limit</span></div>
-                    <div class="gauge-fill" style="--w:45.8%;background:var(--forest-mid);font-size:0.76rem;">293 KB</div>
-                  </div>
+              <!-- Main SRAM Budget Card -->
+              <div class="card rule-terracotta mcu-sram-card anim" style="--d:3;">
+                <div class="card-head">
+                  <span class="card-title">Peak SRAM vs. <span class="mono t-alert">320 KB</span> Ceiling</span>
+                  <span class="tag tag-alert mono">OVER BUDGET ✗</span>
                 </div>
 
-                <div class="gauge-block">
-                  <div class="gauge-head">
-                    <span><strong>Peak Activation</strong> (at explicit <span class="mono">PAD</span> op)</span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-alert">389 KB (+69 KB)</strong> <span class="tag tag-alert" style="padding:0.1rem 0.48rem;font-size:0.68rem;">OVER ✗</span></span>
-                  </div>
-                  <div class="gauge-track" style="height:24px;">
-                    <div class="gauge-limit-line" style="left:50%;"></div>
-                    <div class="gauge-fill" style="--w:60.8%;background:var(--amber);transition-delay:140ms;font-size:0.76rem;">389 KB</div>
-                  </div>
+                <div class="sram-ruler" aria-hidden="true">
+                  <span class="mono sram-tick">0 KB</span>
+                  <span class="mono sram-limit-pill">▼ 320 KB Limit</span>
+                  <span class="mono sram-tick">640 KB</span>
                 </div>
 
-                <div class="gauge-block">
-                  <div class="gauge-head">
-                    <span><strong>TFLite Micro Tensor Arena</strong></span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;"><strong class="mono t-alert">~600 KB (1.88×)</strong> <span class="tag tag-alert" style="padding:0.1rem 0.48rem;font-size:0.68rem;">OVER ✗</span></span>
+                <div class="sram-gauges">
+                  <div class="gauge-block">
+                    <div class="mcu-gauge-head">
+                      <span class="mcu-gauge-label"><strong>TinyEngine Target</strong> <span class="mcu-gauge-sub">(<span class="mono">mcunet-in3</span>)</span></span>
+                      <span class="mcu-gauge-val"><strong class="mono t-forest">293 KB</strong> <span class="tag tag-forest mcu-badge-sm">FITS ✓</span></span>
+                    </div>
+                    <div class="gauge-track mcu-track">
+                      <div class="gauge-limit-line mcu-limit-line" style="left:50%;"></div>
+                      <div class="gauge-fill mcu-fill" style="--w:45.8%;background:var(--forest-mid);">293 KB</div>
+                    </div>
                   </div>
-                  <div class="gauge-track" style="height:24px;">
-                    <div class="gauge-limit-line" style="left:50%;"></div>
-                    <div class="gauge-fill" style="--w:93.8%;background:var(--terracotta);transition-delay:280ms;font-size:0.76rem;">~600 KB Arena</div>
+
+                  <div class="gauge-block">
+                    <div class="mcu-gauge-head">
+                      <span class="mcu-gauge-label"><strong>Peak Activation</strong> <span class="mcu-gauge-sub">(explicit <span class="mono">PAD</span>)</span></span>
+                      <span class="mcu-gauge-val"><strong class="mono t-alert">389 KB (+69 KB)</strong> <span class="tag tag-alert mcu-badge-sm">OVER ✗</span></span>
+                    </div>
+                    <div class="gauge-track mcu-track">
+                      <div class="gauge-limit-line mcu-limit-line" style="left:50%;"></div>
+                      <div class="gauge-fill mcu-fill" style="--w:60.8%;background:var(--amber);transition-delay:140ms;">389 KB</div>
+                    </div>
+                  </div>
+
+                  <div class="gauge-block">
+                    <div class="mcu-gauge-head">
+                      <span class="mcu-gauge-label"><strong>TFLite Micro Arena</strong></span>
+                      <span class="mcu-gauge-val"><strong class="mono t-alert">~600 KB (1.88×)</strong> <span class="tag tag-alert mcu-badge-sm">OVER ✗</span></span>
+                    </div>
+                    <div class="gauge-track mcu-track">
+                      <div class="gauge-limit-line mcu-limit-line" style="left:50%;"></div>
+                      <div class="gauge-fill mcu-fill" style="--w:93.8%;background:var(--terracotta);transition-delay:280ms;">~600 KB Arena</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-stack" style="justify-content:space-between;">
-              <div class="card anim" style="--d:3;flex:1 1 auto;justify-content:space-between;">
+            <div class="col-stack mcu-right-col">
+              <div class="card mcu-ops-card anim" style="--d:3;">
                 <div class="card-head">
-                  <span class="card-title">Exported Graph Operator Audit</span>
+                  <span class="card-title">Exported Graph Operators</span>
                   <span class="tag tag-slate mono">71 Ops · 6 Types</span>
                 </div>
 
-                <div style="display:flex;flex-direction:column;gap:0.62rem;">
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;font-weight:700;">CONV_2D</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:100%;background:var(--forest);"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">36</span>
+                <div class="mcu-ops-list">
+                  <div class="bar-row mcu-op-row">
+                    <span class="mono mcu-op-name">CONV_2D</span>
+                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:100%;background:var(--forest);"></div></div>
+                    <span class="mono mcu-op-count">36</span>
                   </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;font-weight:700;">DEPTHWISE_CONV</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:50%;background:var(--forest-mid);transition-delay:70ms;"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">18</span>
+                  <div class="bar-row mcu-op-row">
+                    <span class="mono mcu-op-name">DEPTHWISE_CONV</span>
+                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:50%;background:var(--forest-mid);transition-delay:70ms;"></div></div>
+                    <span class="mono mcu-op-count">18</span>
                   </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;font-weight:700;">ADD (Skips)</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:30.5%;background:var(--sage);transition-delay:140ms;"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">11</span>
+                  <div class="bar-row mcu-op-row">
+                    <span class="mono mcu-op-name">ADD (Skips)</span>
+                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:30.5%;background:var(--sage);transition-delay:140ms;"></div></div>
+                    <span class="mono mcu-op-count">11</span>
                   </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono t-alert" style="font-size:0.78rem;">PAD (Culprit!)</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:14%;background:var(--terracotta);transition-delay:210ms;"></div></div>
-                    <span class="mono t-alert" style="text-align:right;">4</span>
+                  <div class="bar-row mcu-op-row mcu-op-culprit">
+                    <span class="mono mcu-op-name t-alert">PAD (Culprit!)</span>
+                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:15%;background:var(--terracotta);transition-delay:210ms;"></div></div>
+                    <span class="mono mcu-op-count t-alert">4</span>
                   </div>
-                  <div class="bar-row" style="grid-template-columns:122px 1fr 42px;">
-                    <span class="mono" style="font-size:0.78rem;">AVG_POOL + FC</span>
-                    <div class="bar-track"><div class="bar-fill" style="--w:7%;background:var(--slate-blue);transition-delay:280ms;"></div></div>
-                    <span class="mono" style="text-align:right;font-weight:700;">2</span>
+                  <div class="bar-row mcu-op-row">
+                    <span class="mono mcu-op-name">AVG_POOL + FC</span>
+                    <div class="bar-track mcu-op-track"><div class="bar-fill" style="--w:8%;background:var(--slate-blue);transition-delay:280ms;"></div></div>
+                    <span class="mono mcu-op-count">2</span>
                   </div>
                 </div>
 
-                <p style="font-size:0.79rem;color:var(--mute);">Minimal 6-op TFLite Micro resolver keeps firmware binary small.</p>
+                <p class="mcu-ops-foot">Minimal 6-op TFLite Micro resolver keeps firmware binary small.</p>
               </div>
 
-              <div class="card left-rule-terracotta anim" style="--d:4;background:var(--terracotta-soft);border-color:#ecc0b6;">
-                <div class="card-title" style="color:#7c2515;">Root Cause &amp; Engineering Solution</div>
-                <p class="card-text" style="color:#6e2214;font-size:0.9rem;">Explicit <span class="mono">PAD</span> allocates a full padded copy alongside its input tensor (<span class="mono">389 KB</span> peak). Switching to <strong>TinyEngine (<span class="mono">293 KB</span>)</strong> or fusing padding directly into <span class="mono">CONV_2D</span> brings SRAM safely under <span class="mono">320 KB</span>.</p>
+              <div class="card left-rule-terracotta mcu-fix-card anim" style="--d:4;">
+                <div class="card-title" style="color:#7c2515;">Root Cause &amp; Fix</div>
+                <div class="mcu-fix-lines">
+                  <p><strong>Why:</strong> Explicit <span class="mono">PAD</span> copies its input tensor in RAM (<span class="mono">389 KB</span>).</p>
+                  <p><strong>Fix:</strong> Compile via <strong>TinyEngine (<span class="mono">293 KB</span>)</strong> or fuse <span class="mono">PAD</span> into <span class="mono">CONV_2D</span> to fit under <span class="mono">320 KB</span>.</p>
+                </div>
               </div>
             </div>
           </div>
