@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=9" />
+  <link rel="stylesheet" href="./styles.css?v=10" />
 </head>
 <body class="theme-photo">
 
@@ -166,16 +166,16 @@
 
         <div class="body-area">
           <div class="grid-2">
-            <div class="card-frosted-light rule-forest anim" style="--d:2;justify-content:space-between;">
+            <div class="card-frosted-light rule-forest anim" style="--d:2;">
               <div class="card-head">
                 <span class="card-title">Splits &amp; Class Distribution</span>
                 <span class="tag tag-forest mono">690,881 Total</span>
               </div>
 
-              <div style="display:flex;flex-direction:column;gap:0.55rem;">
-                <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:1.02rem;font-weight:700;color:var(--ink-2);">
+              <div class="ds-split-block">
+                <div class="ds-split-meta">
                   <span>Location-Disjoint 80 / 10 / 10 Split</span>
-                  <span class="mono" style="font-size:0.94rem;color:var(--forest);">320 px → 176×176</span>
+                  <span class="mono" style="color:var(--forest);">320 px → 176×176</span>
                 </div>
                 <div class="split-strip">
                   <div class="split-seg" style="width:80%;background:var(--forest);">Train · 552,657</div>
@@ -184,7 +184,7 @@
                 </div>
               </div>
 
-              <div style="display:flex;flex-direction:column;gap:0.95rem;">
+              <div class="ds-bars-block">
                 <div class="bar-row">
                   <span style="font-weight:700;">animal</span>
                   <div class="bar-track"><div class="bar-fill" style="--w:100%;background:var(--forest);"></div></div>
@@ -206,13 +206,9 @@
                   <span class="mono" style="text-align:right;font-weight:700;">9.7k</span>
                 </div>
               </div>
-
-              <div class="card-tint left-rule-amber ds-callout">
-                <p><strong>Imbalance Handling:</strong> Severe <span class="mono">34:1</span> skew (<span class="mono">animal</span> vs. <span class="mono">vehicle</span>) balanced via square-root inverse class weights during training.</p>
-              </div>
             </div>
 
-            <div class="card-frosted-light rule-sage anim" style="--d:3;justify-content:space-between;">
+            <div class="card-frosted-light rule-sage anim" style="--d:3;">
               <div class="card-head">
                 <span class="card-title">4 Complementary Sources</span>
                 <span class="tag mono">Camera Traps + Web</span>
@@ -235,10 +231,6 @@
                   <div><strong>ImageNet-1k</strong><div class="src-sub">398 animal species &amp; 40 land-vehicle categories</div></div>
                   <span class="tag tag-amber mono">Diversity</span>
                 </div>
-              </div>
-
-              <div class="card-tint left-rule-forest ds-callout">
-                <p><strong>Anti-Leakage Guarantee:</strong> Deterministic <strong>MD5 hash by camera location</strong> keeps every background strictly in one split (plus independent <span class="mono">split_v2</span> for scarce classes).</p>
               </div>
             </div>
           </div>
@@ -425,9 +417,9 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 8: CUSTOM TF2 REBUILDER & INT8 PARITY (Boxless Left Column)
+         SLIDE 8: CUSTOM TF2 REBUILDER & INT8 PARITY
          ===================================================================== -->
-    <section class="slide" data-num="8" data-section="08 INT8 Export"
+    <section class="slide slide-int8" data-num="8" data-section="08 INT8 Export"
       data-title="Custom TF2 Rebuilder &amp; INT8 Quantization Parity"
       data-notes="MCUNet's official TFLite converter relies on TensorFlow 1 tf.Session and fails on modern TF2. We built a custom PyTorch-to-TF2 NHWC rebuilder with float64 BatchNorm folding and exact explicit padding, matching PyTorch logits within 2.21e-6. Full INT8 post-training quantization yields input scale 0.00784314 and zero point -1, so microcontroller preprocessing reduces to pure integer q = pixel - 128 without a single floating-point operation. On 500 held-out test images, INT8 scores 87.6% versus 88.2% FP32 (94.6% agreement), and across our 384-image calibration audit INT8 achieves 100.0% exact agreement (226 out of 226) whenever PyTorch confidence exceeds 0.7.">
       <div class="stage">
@@ -439,7 +431,7 @@
           </div>
         </header>
 
-        <div class="body-area" style="justify-content:space-between;">
+        <div class="body-area int8-body">
           <div class="pipeline-flow-4 anim" style="--d:2">
             <div class="pipe-node">
               <span class="pipe-step-num">Stage 1 · PyTorch</span>
@@ -472,61 +464,36 @@
             </div>
           </div>
 
-          <div class="grid-2 anim" style="--d:3">
-            <div class="editorial-block ed-forest" style="justify-content:space-between;padding:0.45rem 0.6rem 0.45rem 1.35rem;gap:1.15rem;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding-bottom:0.55rem;border-bottom:1px solid var(--line);">
-                <span class="card-title" style="font-size:1.32rem;">Why Custom TF2 + Pure-Integer Input</span>
-                <span class="tag tag-slate mono" style="font-size:0.86rem;">s = 1/127.5 · zp = −1</span>
+          <div class="card int8-parity-card anim" style="--d:3;">
+            <div class="card-head">
+              <span class="card-title">INT8 vs. PyTorch Agreement by Confidence</span>
+              <span class="tag tag-forest mono">384-Img Verification</span>
+            </div>
+
+            <div class="int8-bars">
+              <div class="bar-row int8-bar-row">
+                <span class="mono int8-bin">(0.0, 0.5] <span class="int8-cnt">(46)</span></span>
+                <div class="bar-track int8-track"><div class="bar-fill" style="--w:69.6%;background:var(--amber);"></div></div>
+                <span class="mono int8-pct">69.6%</span>
               </div>
-              <ul class="clean-list" style="margin:auto 0;">
-                <li><strong>Replaces broken TF1 converter:</strong> MCUNet's repo calls deprecated <span class="mono">tf.Session</span>; our layer-by-layer TF2 rebuilder folds BatchNorm in <span class="mono">float64</span> for exact float parity (<span class="mono">100%</span> TFLite FP32 match, <span class="mono">max |Δlogit| = 2.21e-6</span>).</li>
-                <li><strong>Zero floating-point math on MCU:</strong> Because inputs normalize to <span class="mono">[-1, 1]</span>, INT8 quantization simplifies to a single byte subtraction: <span class="mono t-forest">q = pixel − 128</span>.</li>
-              </ul>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;">
-                <div class="card-tint" style="padding:0.78rem;align-items:center;text-align:center;background:#ffffff;">
-                  <span style="font-size:0.74rem;text-transform:uppercase;font-weight:700;color:var(--mute);">500-Img Test Eval</span>
-                  <div class="mono" style="font-size:1.32rem;font-weight:800;color:var(--forest);">87.6% <span style="font-size:0.84rem;color:var(--mute);font-weight:600;">vs 88.2%</span></div>
-                  <span style="font-size:0.8rem;color:var(--ink-2);"><span class="mono">94.6%</span> exact agreement</span>
-                </div>
-                <div class="card-tint" style="padding:0.78rem;align-items:center;text-align:center;background:var(--sage-soft);border-color:#c2dacb;">
-                  <span style="font-size:0.74rem;text-transform:uppercase;font-weight:700;color:var(--forest);">High-Confidence Parity</span>
-                  <div class="mono" style="font-size:1.32rem;font-weight:800;color:var(--forest);">100.0%</div>
-                  <span style="font-size:0.8rem;color:var(--ink-2);"><span class="mono">226 / 226</span> when <span class="mono">conf &gt; 0.7</span></span>
-                </div>
+              <div class="bar-row int8-bar-row">
+                <span class="mono int8-bin">(0.5, 0.7] <span class="int8-cnt">(112)</span></span>
+                <div class="bar-track int8-track"><div class="bar-fill" style="--w:88.4%;background:var(--sage);transition-delay:110ms;"></div></div>
+                <span class="mono int8-pct">88.4%</span>
+              </div>
+              <div class="bar-row int8-bar-row">
+                <span class="mono int8-bin t-forest">(0.7, 0.9] <span class="int8-cnt">(86)</span></span>
+                <div class="bar-track int8-track"><div class="bar-fill" style="--w:100%;background:var(--forest-mid);transition-delay:220ms;"></div></div>
+                <span class="mono int8-pct t-forest">100.0%</span>
+              </div>
+              <div class="bar-row int8-bar-row">
+                <span class="mono int8-bin t-forest">(0.9, 1.0] <span class="int8-cnt">(140)</span></span>
+                <div class="bar-track int8-track"><div class="bar-fill" style="--w:100%;background:var(--forest);transition-delay:320ms;"></div></div>
+                <span class="mono int8-pct t-forest">100.0%</span>
               </div>
             </div>
 
-            <div class="card" style="justify-content:space-between;">
-              <div class="card-head">
-                <span class="card-title">INT8 vs. PyTorch Agreement by Confidence</span>
-                <span class="tag tag-forest mono">384-Img Verification</span>
-              </div>
-
-              <div style="display:flex;flex-direction:column;gap:0.95rem;margin:auto 0;">
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;">(0.0, 0.5] <span style="color:var(--mute);font-size:0.72rem;">(46)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:69.6%;background:var(--amber);"></div></div>
-                  <span class="mono" style="text-align:right;font-weight:700;">69.6%</span>
-                </div>
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;">(0.5, 0.7] <span style="color:var(--mute);font-size:0.72rem;">(112)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:88.4%;background:var(--sage);transition-delay:110ms;"></div></div>
-                  <span class="mono" style="text-align:right;font-weight:700;">88.4%</span>
-                </div>
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;font-weight:700;color:var(--forest);">(0.7, 0.9] <span style="color:var(--mute);font-size:0.72rem;">(86)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:100%;background:var(--forest-mid);transition-delay:220ms;"></div></div>
-                  <span class="mono t-forest" style="text-align:right;">100.0%</span>
-                </div>
-                <div class="bar-row" style="grid-template-columns:108px 1fr 64px;">
-                  <span class="mono" style="font-size:0.82rem;font-weight:700;color:var(--forest);">(0.9, 1.0] <span style="color:var(--mute);font-size:0.72rem;">(140)</span></span>
-                  <div class="bar-track" style="height:18px;"><div class="bar-fill" style="--w:100%;background:var(--forest);transition-delay:320ms;"></div></div>
-                  <span class="mono t-forest" style="text-align:right;">100.0%</span>
-                </div>
-              </div>
-
-              <p style="font-size:0.84rem;color:var(--mute);">Virtually all INT8 disagreements occur on genuinely ambiguous borderline frames (<span class="mono">conf ≤ 0.7</span>), with zero flips on confident triggers.</p>
-            </div>
+            <p class="int8-foot">Virtually all INT8 disagreements occur on genuinely ambiguous borderline frames (<span class="mono">conf ≤ 0.7</span>), with zero flips on confident triggers.</p>
           </div>
         </div>
       </div>
@@ -952,6 +919,6 @@
     </div>
   </div>
 
-  <script src="./app.js?v=9"></script>
+  <script src="./app.js?v=10"></script>
 </body>
 </html>
