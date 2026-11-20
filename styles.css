@@ -98,9 +98,9 @@ body.theme-photo #secbar {
   cursor: pointer;
   text-align: left;
   font-family: var(--font-sans);
-  font-size: 0.61rem;
+  font-size: 0.58rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--mute);
   padding-top: 8px;
@@ -251,6 +251,22 @@ body.theme-photo #secbar button.sec-seg.active::after {
     rgba(15, 29, 22, 0.80) 52%,
     rgba(13, 24, 18, 0.34) 85%,
     rgba(11, 20, 16, 0.44) 100%
+  );
+}
+
+.slide-bg-context {
+  background-image: url('./assets/images/bg-context-camtrap.jpg');
+  background-position: right center;
+}
+
+.slide-bg-context::before {
+  background: linear-gradient(
+    96deg,
+    rgba(10, 20, 15, 0.94) 0%,
+    rgba(13, 25, 19, 0.88) 46%,
+    rgba(13, 25, 19, 0.56) 64%,
+    rgba(10, 18, 14, 0.14) 86%,
+    rgba(10, 18, 14, 0.22) 100%
   );
 }
 
@@ -642,6 +658,109 @@ h1.slide-title {
 .pivot-block .tag {
   font-size: 0.90rem;
   padding: 0.3rem 0.85rem;
+}
+
+/* Boxless dark-photo Context layout (Slide 2) */
+.context-layout {
+  max-width: 57%;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.2vh;
+}
+
+.context-lead {
+  font-size: 1.18rem;
+  line-height: 1.5;
+  color: rgba(240, 246, 242, 0.94);
+}
+
+.context-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7vh;
+}
+
+.context-item {
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  border-left: 3.5px solid #8ec9a7;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.context-item.ctx-amber { border-left-color: #eab367; }
+.context-item.ctx-alert { border-left-color: #e27864; }
+
+.context-item-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.context-item-text {
+  font-size: 1.02rem;
+  line-height: 1.46;
+  color: rgba(220, 232, 225, 0.90);
+}
+
+/* Boxless editorial text columns (Slide 7 Training & Slide 8 INT8 Export) */
+.editorial-stack {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.8vh;
+  padding: 0.2rem 0.4rem 0.2rem 0;
+}
+
+.editorial-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.editorial-block.ed-forest { border-left: 4px solid var(--forest); }
+.editorial-block.ed-slate  { border-left: 4px solid var(--slate-blue); }
+.editorial-block.ed-amber  { border-left: 4px solid var(--amber); }
+
+.editorial-block .card-title {
+  font-size: 1.28rem;
+  line-height: 1.22;
+}
+
+.editorial-block .card-text {
+  font-size: 1.09rem;
+  line-height: 1.48;
+  color: var(--ink-2);
+}
+
+.editorial-block .clean-list {
+  gap: 0.95rem;
+}
+
+.editorial-block .clean-list li {
+  font-size: 1.12rem;
+  line-height: 1.48;
+  padding-left: 1.25rem;
+}
+
+.editorial-block .clean-list li::before {
+  width: 7px;
+  height: 7px;
+  top: 0.54em;
+}
+
+.editorial-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 0.1rem 0;
 }
 
 /* Full-canvas scaled boxes on Slide 4 (MDv5a Cleaning) */
