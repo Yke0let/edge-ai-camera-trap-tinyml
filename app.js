@@ -72,8 +72,8 @@
     const isPhoto = slide.classList.contains('photo-slide');
     document.body.classList.toggle('theme-photo', isPhoto);
 
-    hudCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
-    hudSecLabel.textContent = slide.dataset.section || '';
+    if (hudCounter) hudCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+    if (hudSecLabel) hudSecLabel.textContent = slide.dataset.section || '';
 
     segButtons.forEach((btn, i) => {
       btn.classList.toggle('active', i === idx);
@@ -131,17 +131,17 @@
      ======================================================================== */
   function toggleNotes() {
     const shown = notesDrawer.classList.toggle('shown');
-    document.getElementById('btn-notes').classList.toggle('is-active', shown);
+    document.getElementById('btn-notes')?.classList.toggle('is-active', shown);
   }
 
   function openOverview() {
     overviewModal.classList.add('shown');
-    document.getElementById('btn-overview').classList.add('is-active');
+    document.getElementById('btn-overview')?.classList.add('is-active');
   }
 
   function closeOverview() {
     overviewModal.classList.remove('shown');
-    document.getElementById('btn-overview').classList.remove('is-active');
+    document.getElementById('btn-overview')?.classList.remove('is-active');
   }
 
   function toggleOverview() {
@@ -149,14 +149,14 @@
     else openOverview();
   }
 
-  document.getElementById('btn-prev').addEventListener('click', () => goTo(currentIdx - 1));
-  document.getElementById('btn-next').addEventListener('click', () => goTo(currentIdx + 1));
-  document.getElementById('btn-replay').addEventListener('click', replayCurrent);
-  document.getElementById('btn-overview').addEventListener('click', toggleOverview);
-  document.getElementById('btn-close-overview').addEventListener('click', closeOverview);
-  document.getElementById('btn-notes').addEventListener('click', toggleNotes);
-  document.getElementById('btn-close-notes').addEventListener('click', toggleNotes);
-  document.getElementById('btn-print').addEventListener('click', () => {
+  document.getElementById('btn-prev')?.addEventListener('click', () => goTo(currentIdx - 1));
+  document.getElementById('btn-next')?.addEventListener('click', () => goTo(currentIdx + 1));
+  document.getElementById('btn-replay')?.addEventListener('click', replayCurrent);
+  document.getElementById('btn-overview')?.addEventListener('click', toggleOverview);
+  document.getElementById('btn-close-overview')?.addEventListener('click', closeOverview);
+  document.getElementById('btn-notes')?.addEventListener('click', toggleNotes);
+  document.getElementById('btn-close-notes')?.addEventListener('click', toggleNotes);
+  document.getElementById('btn-print')?.addEventListener('click', () => {
     renderAllVisualsStatic();
     window.print();
   });
@@ -171,7 +171,7 @@
     if (e.key === 'Escape') {
       closeOverview();
       notesDrawer.classList.remove('shown');
-      document.getElementById('btn-notes').classList.remove('is-active');
+      document.getElementById('btn-notes')?.classList.remove('is-active');
       return;
     }
 
