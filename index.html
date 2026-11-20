@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./styles.css?v=6" />
 </head>
 <body class="theme-photo">
 
@@ -658,8 +658,8 @@
               <div class="card left-rule-terracotta mcu-fix-card anim" style="--d:4;">
                 <div class="card-title" style="color:#7c2515;">Root Cause &amp; Fix</div>
                 <div class="mcu-fix-lines">
-                  <p><strong>Why:</strong> Explicit <span class="mono">PAD</span> copies its input tensor in RAM (<span class="mono">389 KB</span>).</p>
-                  <p><strong>Fix:</strong> Compile via <strong>TinyEngine (<span class="mono">293 KB</span>)</strong> or fuse <span class="mono">PAD</span> into <span class="mono">CONV_2D</span> to fit under <span class="mono">320 KB</span>.</p>
+                  <p><strong>Why:</strong> Explicit <span class="mono">PAD</span> copies its input in RAM (<span class="mono">389&nbsp;KB</span>).</p>
+                  <p><strong>Fix:</strong> Compile via <strong>TinyEngine (<span class="mono">293&nbsp;KB</span>)</strong> or fuse <span class="mono">PAD</span> into <span class="mono">CONV_2D</span> to fit under <span class="mono">320&nbsp;KB</span>.</p>
                 </div>
               </div>
             </div>
@@ -1007,6 +1007,6 @@
     </div>
   </div>
 
-  <script src="./app.js"></script>
+  <script src="./app.js?v=6"></script>
 </body>
 </html>
