@@ -1,6 +1,6 @@
 # TinyML MegaDetector: Edge AI for Camera-Trap Wildlife Monitoring (`mcunet-in3`)
 
-**Interactive 13-Slide Academic Presentation** · *AIMS · AI for Science: Deep Learning for Ecology*
+**Interactive 14-Slide Academic Presentation** · *AIMS · AI for Science: Deep Learning for Ecology*
 
 > **Live Web Presentation (GitHub Pages):**  
 > **[https://yke0let.github.io/edge-ai-camera-trap-tinyml/#1](https://yke0let.github.io/edge-ai-camera-trap-tinyml/#1)**
@@ -16,27 +16,28 @@ Our goal is to filter camera-trap frames directly on microcontrollers (`SRAM ≤
 
 ---
 
-## Slide Index (13 Slides)
+## Slide Index (14 Slides)
 
 1. **`#1` Title Slide** *(Woodland dawn backdrop)*: Project focus and team attribution
 2. **`#2` Ecological Context** *(Camera-trap woodland backdrop)*: Empty-frame flood, off-grid limits & TinyML edge objective
 3. **`#3` The Pivot**: Why we pivoted from birds (`45.0%` recall) to 4 MegaDetector classes (`88.47%` / `0.905` F1)
-4. **`#4` Final Dataset (`690,881` Images)** *(Savanna backdrop)*: 80/10/10 splits, 4 sources & MD5 camera-location anti-leakage
+4. **`#4` Final Dataset (`690,881` Images)** *(Savanna backdrop)*: 80/10/10 splits & 4 complementary sources
 5. **`#5` Teacher-Guided Data Cleaning (`MDv5a`)**: Animated 4-step burst-denoising pipeline & real data-audit bugs caught
-6. **`#6` Model Architecture (`mcunet-in3`)**: Animated 18-block `MBInvertedConvLayer`, 11 residual skips & 4-class `LinearLayer` head
-7. **`#7` Two-Phase GPU Training Dynamics**: Animated 11-epoch `history.csv` curve (`82.5% → 90.0%` val jump) & ecology-driven augmentations
-8. **`#8` Custom TF2 Rebuilder & INT8 Parity**: Animated PyTorch→TF2→INT8 pipeline, `q = pixel − 128`, `100%` agreement (`226/226`) for `conf > 0.7`
-9. **`#9` Held-Out Test Results (`66,027` Images)**: Per-class F1 (`0.905` macro) & per-source accuracy (`88.47%` overall)
-10. **`#10` Diagnostic Error Audit**: 4×4 confusion matrix & `91.8%` `animal ↔ empty` error concentration
-11. **`#11` Visual Proof (Real Camera-Trap Frames)**: Real WCS & CCT field inputs vs. actual `animal ↔ empty` test failure cases
-12. **`#12` Technical Risks, Limitations & Next Steps** *(Nocturnal forest backdrop)*: Closing the SRAM spike, improving training data & patch detection on original images (`35 ms` latency), and licensing governance
-13. **`#13` On-Device Hardware Deployment**: Real `160×120` RGB outdoor captures taken and classified by our deployed equipment (`animal`, `person`, `vehicle`)
+6. **`#6` Stratified Sampling & Visual Audit**: Round-robin species/site diversity, location-disjoint MD5 splits, 1 frame/burst & 24-sample visual audit (`examples.png`)
+7. **`#7` Model Architecture (`mcunet-in3`)**: Animated 18-block `MBInvertedConvLayer`, 11 residual skips & 4-class `LinearLayer` head
+8. **`#8` Two-Phase GPU Training Dynamics**: Animated 11-epoch `history.csv` curve (`82.5% → 90.0%` val jump) & ecology-driven augmentations
+9. **`#9` Custom TF2 Rebuilder & INT8 Parity**: Animated PyTorch→TF2→INT8 pipeline & confidence-stratified agreement (`100%` above `0.7`)
+10. **`#10` Held-Out Test Results (`66,027` Images)**: Per-class F1 (`0.905` macro) & per-source accuracy (`88.47%` overall)
+11. **`#11` Diagnostic Error Audit**: 4×4 confusion matrix & `91.8%` `animal ↔ empty` error concentration
+12. **`#12` Visual Proof (Real Camera-Trap Frames)**: Real WCS & CCT field inputs vs. actual `animal ↔ empty` test failure cases
+13. **`#13` Technical Risks, Limitations & Next Steps** *(Nocturnal forest backdrop)*: Improving training data & patch detection on original images (`35 ms` latency), and field QA / licensing governance
+14. **`#14` On-Device Hardware Deployment**: Real `160×120` RGB outdoor captures taken and classified by our deployed equipment (`animal`, `person`, `vehicle`)
 
 ---
 
 ## Controls & Local Preview
 
-- **Keyboard:** `←` / `→` or `Space`, `1`–`9` / `0` quick jump, `O` slide overview grid, `N` speaker notes, `R` replay animations, `Ctrl+P` for clean 16:9 13-page PDF.
+- **Keyboard:** `←` / `→` or `Space`, `1`–`9` / `0` quick jump, `O` slide overview grid, `N` speaker notes, `R` replay animations, `Ctrl+P` for clean 16:9 14-page PDF.
 
 ```bash
 python3 -m http.server 8000

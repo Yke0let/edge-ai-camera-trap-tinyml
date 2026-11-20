@@ -88,13 +88,13 @@
 
   function triggerSlideVisuals(idx, instant) {
     if (idx === 2) renderPivotChart(instant);
-    if (idx === 5) renderMCUNetArch(instant);
-    if (idx === 6) renderTrainingCurve(instant);
-    if (idx === 8) {
+    if (idx === 6) renderMCUNetArch(instant);
+    if (idx === 7) renderTrainingCurve(instant);
+    if (idx === 9) {
       renderTrackBF1(instant);
       renderTrackBSources(instant);
     }
-    if (idx === 9) renderTrackBErrors(instant);
+    if (idx === 10) renderTrackBErrors(instant);
   }
 
   function goTo(idx, opts = {}) {

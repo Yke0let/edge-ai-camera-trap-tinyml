@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TinyML MegaDetector: Edge AI for Camera-Trap Wildlife Monitoring (13 Slides)</title>
-  <meta name="description" content="13-slide academic research presentation on Edge AI camera-trap wildlife monitoring with mcunet-in3, pivoting from bird detection to a 4-class TinyML MegaDetector." />
+  <title>TinyML MegaDetector: Edge AI for Camera-Trap Wildlife Monitoring (14 Slides)</title>
+  <meta name="description" content="14-slide academic research presentation on Edge AI camera-trap wildlife monitoring with mcunet-in3, pivoting from bird detection to a 4-class TinyML MegaDetector." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=11" />
+  <link rel="stylesheet" href="./styles.css?v=12" />
 </head>
 <body class="theme-photo">
 
-  <!-- TOP 13-SEGMENT PROGRESS NAVIGATION -->
+  <!-- TOP 14-SEGMENT PROGRESS NAVIGATION -->
   <nav id="secbar" aria-label="Slide navigation"></nav>
 
-  <!-- MAIN DECK CONTAINER: 13 AIRY SLIDES -->
+  <!-- MAIN DECK CONTAINER: 14 AIRY SLIDES -->
   <main id="deck-root">
 
     <!-- =====================================================================
@@ -311,14 +311,60 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 6: MODEL ARCHITECTURE: mcunet-in3 (Animated Interactive SVG)
+         SLIDE 6: DIVERSITY SAMPLING & VISUAL AUDIT (outputs/examples.png)
          ===================================================================== -->
-    <section class="slide" data-num="6" data-section="06 Architecture"
+    <section class="slide slide-sampling" data-num="6" data-section="06 Sampling"
+      data-title="Stratified Sampling &amp; Multi-Source Visual Audit"
+      data-notes="After denoising bursts with MegaDetector v5a, three sampling rules protect dataset balance and prevent spatial leakage. First, round-robin sampling cycles across species, camera sites, and sub-categories so rare wildlife is never drowned out by common species. Second, deterministic MD5 hashing splits camera locations disjointly across train, validation, and test, applied independently per class so scarce person and vehicle classes appear in every split. Third, keeping one verified frame per burst eliminates near-duplicates. On the right, 24 random training samples across all four classes and four sources visually verify label cleanliness and environmental diversity.">
+      <div class="stage">
+        <header class="slide-header anim" style="--d:1">
+          <div class="eyebrow">06 · Sampling Strategy &amp; Visual Audit</div>
+          <div class="slide-header-row">
+            <h1 class="slide-title">Round-Robin &amp; Location-Disjoint Sampling Across 4 Sources</h1>
+            <span class="tag tag-forest mono">WCS · CCT · COCO · ImageNet</span>
+          </div>
+        </header>
+
+        <div class="body-area">
+          <div class="sampling-layout">
+            <div class="sampling-info">
+              <div class="editorial-block ed-forest anim" style="--d:2;">
+                <div class="card-title">1. Round-Robin Diversity</div>
+                <p class="card-text">Cycles across species, sites, and sub-categories so rare wildlife is never drowned out by common animals.</p>
+              </div>
+
+              <div class="editorial-divider anim" style="--d:3;"></div>
+
+              <div class="editorial-block ed-slate anim" style="--d:3;">
+                <div class="card-title">2. Location-Disjoint MD5 Splits</div>
+                <p class="card-text">Deterministic hash per camera location keeps every background strictly in one split (split per class for scarce <span class="mono">person</span> &amp; <span class="mono">vehicle</span>).</p>
+              </div>
+
+              <div class="editorial-divider anim" style="--d:4;"></div>
+
+              <div class="editorial-block ed-amber anim" style="--d:4;">
+                <div class="card-title">3. One Frame per Burst</div>
+                <p class="card-text">Keeps a single <span class="mono">MDv5a</span>-verified frame per <span class="mono">3–10</span> frame trigger, preventing near-duplicate inflation.</p>
+              </div>
+            </div>
+
+            <figure class="sampling-fig anim" style="--d:3;">
+              <img src="./assets/images/dataset_sampling_examples.jpg" alt="24 random training samples across animal, empty, person, and vehicle from WCS, CCT, COCO, and ImageNet" />
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SLIDE 7: MODEL ARCHITECTURE: mcunet-in3 (Animated Interactive SVG)
+         ===================================================================== -->
+    <section class="slide" data-num="7" data-section="07 Architecture"
       data-title="Model Architecture: mcunet-in3"
       data-notes="Our backbone is ImageNet-pretrained mcunet-in3 (ProxylessNASNets): 62.2% ImageNet Top-1 FP32, ~81.8M MACs (82.96M in TFLite), and a published TinyEngine reference footprint of 293 KB SRAM and 897 KB Flash. Inputs enter at 176x176x3 normalized to [-1, 1], pass through first_conv (3 to 16, 3x3 stride 2), 18 MBInvertedConvLayer blocks with 3x3, 5x5, and 7x7 depthwise kernels and 11 residual skip connections, Global Average Pooling (160-D), and our custom 4-class LinearLayer head with 0.25 dropout, totaling 577,052 parameters.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">06 · TinyNAS Backbone</div>
+          <div class="eyebrow">07 · TinyNAS Backbone</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Model Architecture: <span class="mono">mcunet-in3</span></h1>
             <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
@@ -363,14 +409,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 7: TWO-PHASE GPU TRAINING DYNAMICS (Real history.csv + Boxless)
+         SLIDE 8: TWO-PHASE GPU TRAINING DYNAMICS (Real history.csv + Boxless)
          ===================================================================== -->
-    <section class="slide" data-num="7" data-section="07 Training"
+    <section class="slide" data-num="8" data-section="08 Training"
       data-title="Two-Phase GPU Training Dynamics &amp; Ecology Augmentations"
       data-notes="We train on CUDA GPU in two deliberate phases totaling ~1 hour 16 minutes. In Phase 1 (epochs 1 to 3), the backbone and its BatchNorm statistics remain frozen while the randomly initialized head learns with AdamW 1e-3, reaching 82.5% validation accuracy. At epoch 4 we unfreeze the full network with differential learning rates (6e-5 backbone, 3e-4 head) and CosineAnnealingLR: validation accuracy immediately jumps +7.5 points to 90.0% (0.8994 macro-F1) at fine-tune epoch 2, where the best checkpoint is saved before early stopping prevents overfitting. Three ecology-specific choices drive generalization: RandomGrayscale p=0.25 simulating night infrared frames, square-root inverse weights for the 34:1 imbalance, and no-crop evaluation so border animals are never clipped.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">07 · Optimization &amp; Field Augmentations</div>
+          <div class="eyebrow">08 · Optimization &amp; Field Augmentations</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Two-Phase Fine-Tuning Jumps Val Accuracy <span class="mono t-forest">82.5% → 90.0%</span></h1>
             <span class="tag tag-forest mono">CUDA GPU · ~1h 16m · Early Stopping</span>
@@ -417,14 +463,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 8: CUSTOM TF2 REBUILDER & INT8 PARITY
+         SLIDE 9: CUSTOM TF2 REBUILDER & INT8 PARITY
          ===================================================================== -->
-    <section class="slide slide-int8" data-num="8" data-section="08 INT8 Export"
+    <section class="slide slide-int8" data-num="9" data-section="09 INT8 Export"
       data-title="Custom TF2 Rebuilder &amp; INT8 Quantization Parity"
       data-notes="MCUNet's official TFLite converter relies on TensorFlow 1 tf.Session and fails on modern TF2. We built a custom PyTorch-to-TF2 NHWC rebuilder with float64 BatchNorm folding and exact explicit padding, matching PyTorch logits within 2.21e-6. Full INT8 post-training quantization yields input scale 0.00784314 and zero point -1, so microcontroller preprocessing reduces to pure integer q = pixel - 128 without a single floating-point operation. On 500 held-out test images, INT8 scores 87.6% versus 88.2% FP32 (94.6% agreement), and across our 384-image calibration audit INT8 achieves 100.0% exact agreement (226 out of 226) whenever PyTorch confidence exceeds 0.7.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">08 · Edge Conversion &amp; Quantization Fidelity</div>
+          <div class="eyebrow">09 · Edge Conversion &amp; Quantization Fidelity</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Custom TF2 Rebuilder Achieves <span class="mono t-forest">100%</span> INT8 Parity Above <span class="mono">0.7</span> Conf</h1>
             <span class="tag tag-forest mono">Full INT8 · Zero-Float Input</span>
@@ -500,14 +546,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 9: TEST RESULTS ON 66,027 HELD-OUT IMAGES
+         SLIDE 10: TEST RESULTS ON 66,027 HELD-OUT IMAGES
          ===================================================================== -->
-    <section class="slide" data-num="9" data-section="09 Results"
+    <section class="slide" data-num="10" data-section="10 Results"
       data-title="Test Performance: 88.47% Accuracy &amp; 0.905 Macro-F1"
       data-notes="Evaluated across all 66,027 held-out test images from unseen camera locations, the FP32 model achieves 88.47% overall accuracy and 0.905 macro-F1, matching its 90.0% / 0.8994 validation score closely. Square-root class weighting keeps rare vehicle (0.948) and person (0.936) classes exceptionally strong. Across sources, COCO reaches 94.5%, CCT 92.1%, and ImageNet 91.0%, while dense-foliage WCS camera traps (40,000 test images) represent the toughest environment at 85.8%.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">09 · Held-Out Test Benchmarks</div>
+          <div class="eyebrow">10 · Held-Out Test Benchmarks</div>
           <div class="slide-header-row">
             <h1 class="slide-title"><span class="mono t-forest">88.47%</span> Test Accuracy &amp; <span class="mono t-forest">0.905</span> Macro-F1 on <span class="mono">66,027</span> Images</h1>
             <span class="tag tag-forest mono">FP32 · Unseen Camera Locations</span>
@@ -545,14 +591,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 10: ERROR ANALYSIS (4x4 Matrix + Animated Donut)
+         SLIDE 11: ERROR ANALYSIS (4x4 Matrix + Animated Donut)
          ===================================================================== -->
-    <section class="slide" data-num="10" data-section="10 Errors"
+    <section class="slide" data-num="11" data-section="11 Errors"
       data-title="Error Analysis: 91.8% Are Animal ↔ Empty Confusions"
       data-notes="Inspecting all 7,615 mistakes across the 66,027 test images shows an overwhelmingly concentrated error structure: 91.8% of all errors (6,994 out of 7,615) are mutual confusions between animal and empty (3,934 empty frames predicted as animal, and 3,060 animals predicted as empty). By contrast, person achieves 96.9% recall and vehicle achieves 94.8% recall; all other ten off-diagonal confusion pairs combined represent just 8.2% of errors.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">10 · Diagnostic Error Audit</div>
+          <div class="eyebrow">11 · Diagnostic Error Audit</div>
           <div class="slide-header-row">
             <h1 class="slide-title"><span class="mono t-amber">91.8%</span> of All Errors Are Mutual <span class="mono">animal ↔ empty</span> Confusions</h1>
             <span class="tag tag-amber mono">7,615 Mistakes / 66,027 Test Imgs</span>
@@ -625,14 +671,14 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 11: VISUAL PROOF: REAL CAMERA-TRAP SAMPLES & FAILURE MODES
+         SLIDE 12: VISUAL PROOF: REAL CAMERA-TRAP SAMPLES & FAILURE MODES
          ===================================================================== -->
-    <section class="slide" data-num="11" data-section="11 Gallery"
+    <section class="slide" data-num="12" data-section="12 Gallery"
       data-title="Visual Proof: Real Camera-Trap Frames &amp; Failure Modes"
       data-notes="Here are six real camera-trap images directly from our dataset and test error audit. The top row shows typical field inputs handled reliably, including monochrome nocturnal IR wildlife in WCS, empty woodland leaf litter discarded on-device, and a motion-blurred truck in Caltech Camera Traps. The bottom row reveals why 91.8% of mistakes are animal-versus-empty: a dark bird hidden in deep canopy shadow on the left edge, a camouflaged bird blending into dappled leaf litter at the bottom border, and dark charred tree stumps casting animal-like silhouettes in an empty hillside frame.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">11 · Qualitative Field Inspection</div>
+          <div class="eyebrow">12 · Qualitative Field Inspection</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Real Camera-Trap Frames: Successes vs. <span class="mono">animal ↔ empty</span> Failures</h1>
             <span class="tag mono">WCS &amp; CCT Test Samples</span>
@@ -726,84 +772,63 @@
     </section>
 
     <!-- =====================================================================
-         SLIDE 12: TECHNICAL RISKS, LIMITATIONS & NEXT STEPS (Photo #4)
+         SLIDE 13: TECHNICAL RISKS, LIMITATIONS & NEXT STEPS (Photo #4)
          ===================================================================== -->
-    <section class="slide photo-slide slide-bg-closing" data-num="12" data-section="12 Next Steps"
+    <section class="slide photo-slide slide-bg-closing slide-nextsteps" data-num="13" data-section="13 Next Steps"
       data-title="Technical Risks, Limitations &amp; Next Steps"
-      data-notes="Three concrete priorities take this model further in the field. First, eliminate explicit PAD ops or compile via TinyEngine with a NumPy < 2 patch against the int8=128 OverflowError so SRAM drops under 320 KB. Second, with measured inference latency already at just 35 ms per frame, our next step is to further improve the training dataset and run patch detection on the original high-resolution image to improve video and frame quality. Third, improve night IR animal-versus-empty separation in dense foliage, and replace non-commercial ImageNet-1k (and CUB-200 from the pilot) before any commercial deployment.">
+      data-notes="Two core priorities take this system further in the field. First, with measured inference latency at just 35 ms per frame, our next step is to further improve and expand the training dataset and run patch detection on the original high-resolution image to preserve fine detail and improve video quality. Second, improve night IR animal-versus-empty separation in dense foliage, and replace non-commercial ImageNet-1k (and CUB-200 from the pilot) before any commercial deployment.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">12 · Risks &amp; Roadmap</div>
+          <div class="eyebrow">13 · Risks &amp; Roadmap</div>
           <div class="slide-header-row">
-            <h1 class="slide-title">Three Steps to Autonomous Field Deployment</h1>
-            <span class="tag tag-dark mono">SRAM · Data &amp; Patches · Licensing</span>
+            <h1 class="slide-title">Next Steps for Autonomous Field Deployment</h1>
+            <span class="tag tag-dark mono">Data &amp; Patches · Licensing</span>
           </div>
         </header>
 
-        <div class="body-area" style="justify-content:center;gap:3.2vh;">
-          <div class="grid-3 grid-auto">
-            <div class="card-frosted-dark rule-terracotta anim" style="--d:2;padding:1.45rem 1.55rem;gap:1rem;">
+        <div class="body-area nextsteps-body">
+          <div class="grid-2 nextsteps-grid">
+            <div class="card-frosted-dark rule-amber nextsteps-card anim" style="--d:2;">
               <div>
                 <div class="card-head">
-                  <span class="card-title">1. Fit Under 320 KB SRAM</span>
-                  <span class="tag tag-alert mono">Critical</span>
-                </div>
-                <ul class="clean-list list-alert" style="margin-top:0.85rem;">
-                  <li>Fuse or remove the <strong>4 explicit <span class="mono">PAD</span> ops</strong> causing the <span class="mono">389 KB</span> spike.</li>
-                  <li>Compile via <strong>TinyEngine (<span class="mono">293 KB</span>)</strong> with <span class="mono">NumPy &lt; 2</span> patch (<span class="mono">int8=128</span> <span class="mono">OverflowError</span>).</li>
-                </ul>
-              </div>
-              <div style="padding-top:0.65rem;margin-top:auto;border-top:1px solid rgba(255,255,255,0.14);font-size:0.78rem;color:#f4b8aa;">Unblocks Cortex-M deployment</div>
-            </div>
-
-            <div class="card-frosted-dark rule-amber anim" style="--d:3;padding:1.45rem 1.55rem;gap:1rem;">
-              <div>
-                <div class="card-head">
-                  <span class="card-title">2. Data &amp; Patch Detection</span>
+                  <span class="card-title">1. Data &amp; Patch Detection</span>
                   <span class="tag tag-amber mono">35 ms</span>
                 </div>
-                <ul class="clean-list list-amber" style="margin-top:0.85rem;">
+                <ul class="clean-list list-amber">
                   <li>Further <strong>improve and expand training data</strong> to strengthen generalization across hard field scenes.</li>
                   <li>Perform <strong>patch detection on the original image</strong> to preserve fine detail and improve video quality.</li>
                 </ul>
               </div>
-              <div style="padding-top:0.65rem;margin-top:auto;border-top:1px solid rgba(255,255,255,0.14);font-size:0.78rem;color:#f5d093;">Measured latency: 35 ms / frame (ample headroom)</div>
+              <div class="nextsteps-foot" style="color:#f5d093;">Measured latency: 35 ms / frame (ample headroom)</div>
             </div>
 
-            <div class="card-frosted-dark rule-forest anim" style="--d:4;padding:1.45rem 1.55rem;gap:1rem;">
+            <div class="card-frosted-dark rule-forest nextsteps-card anim" style="--d:3;">
               <div>
                 <div class="card-head">
-                  <span class="card-title">3. Field QA &amp; Licensing</span>
+                  <span class="card-title">2. Field QA &amp; Licensing</span>
                   <span class="tag tag-dark mono">Governance</span>
                 </div>
-                <ul class="clean-list" style="margin-top:0.85rem;">
+                <ul class="clean-list">
                   <li>Tune thresholds &amp; IR augmentations to cut dense-foliage <span class="mono">animal ↔ empty</span> errors.</li>
                   <li>Replace non-commercial <span class="mono">ImageNet-1k</span> (and pilot <span class="mono">CUB-200</span>) prior to any commercial release.</li>
                 </ul>
               </div>
-              <div style="padding-top:0.65rem;margin-top:auto;border-top:1px solid rgba(255,255,255,0.14);font-size:0.78rem;color:#a9d6bc;">Ensures compliant open-ecology scaling</div>
+              <div class="nextsteps-foot" style="color:#a9d6bc;">Ensures compliant open-ecology scaling</div>
             </div>
-          </div>
-
-          <div class="card-frosted-dark anim" style="--d:5;flex:0 0 auto;flex-direction:row;align-items:center;justify-content:space-between;padding:0.85rem 1.35rem;border-color:rgba(167,212,187,0.38);">
-            <span style="font-size:0.94rem;color:#ffffff;">
-              <strong>Takeaway:</strong> Pivoting from birds to 4 MegaDetector classes delivers <span class="mono" style="color:#a9d6bc;">88.47%</span> accuracy &amp; <span class="mono" style="color:#a9d6bc;">0.905</span> F1 in <span class="mono" style="color:#a9d6bc;">786 KB</span>; only the <span class="mono">PAD</span> SRAM fix stands before field trials.
-            </span>
-            <span class="mono" style="font-size:0.82rem;color:#a9d6bc;white-space:nowrap;">Field Captures Next →</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =====================================================================
-         SLIDE 13: ON-DEVICE HARDWARE CAPTURES (Deploy/ Field Equipment)
+         SLIDE 14: ON-DEVICE HARDWARE CAPTURES (Deploy/ Field Equipment)
          ===================================================================== -->
-    <section class="slide slide-deploy" data-num="13" data-section="13 Field Demo"
+    <section class="slide slide-deploy" data-num="14" data-section="14 Field Demo"
       data-title="Live Hardware Captures from Our Deployed Equipment"
       data-notes="To conclude, here are four real frames captured directly by our own deployed camera-trap equipment outdoors. Every image is captured natively at 160x120 RGB, classified on-device in 35 ms, and automatically sorted into Animal, Person, and Vehicle folders on storage while empty frames are discarded. Even under harsh coastal backlighting and shadows, the deployed model reliably detects moving animals, pedestrians, and vehicles in the field. Thank you, and we welcome your questions.">
       <div class="stage">
         <header class="slide-header anim" style="--d:1">
-          <div class="eyebrow">13 · On-Device Hardware Deployment</div>
+          <div class="eyebrow">14 · On-Device Hardware Deployment</div>
           <div class="slide-header-row">
             <h1 class="slide-title">Real Captures Taken by Our Deployed Equipment</h1>
             <span class="tag tag-forest mono">160×120 RGB · 35 ms On-Device</span>
@@ -865,7 +890,7 @@
   <!-- BOTTOM SLIDE COUNTER -->
   <footer id="hud-bar" aria-label="Slide counter">
     <div id="hud-left">
-      <span id="hud-counter">01 / 13</span>
+      <span id="hud-counter">01 / 14</span>
     </div>
   </footer>
 
@@ -878,12 +903,12 @@
     <p id="notes-text"></p>
   </aside>
 
-  <!-- SLIDE OVERVIEW MODAL (13 SLIDES) -->
-  <div id="overview-modal" role="dialog" aria-modal="true" aria-label="All 13 slides overview">
+  <!-- SLIDE OVERVIEW MODAL (14 SLIDES) -->
+  <div id="overview-modal" role="dialog" aria-modal="true" aria-label="All 14 slides overview">
     <div class="overview-shell">
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <div>
-          <div class="eyebrow">Deck Map · 13 Slides</div>
+          <div class="eyebrow">Deck Map · 14 Slides</div>
           <h2 style="font-family:var(--font-serif);font-size:1.35rem;color:var(--ink);">TinyML MegaDetector: Camera-Trap Wildlife Monitoring</h2>
         </div>
         <button class="hud-btn" id="btn-close-overview">Close (Esc)</button>
@@ -892,6 +917,6 @@
     </div>
   </div>
 
-  <script src="./app.js?v=11"></script>
+  <script src="./app.js?v=12"></script>
 </body>
 </html>
